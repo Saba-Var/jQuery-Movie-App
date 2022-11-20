@@ -1,13 +1,13 @@
-"use strict";
+'use strict'
 
 jQuery(() => {
-  $("#mobile-menu").hide();
+  $('#mobile-menu').hide()
 
-  $("#close-button").on("click", () => {
-    $("#mobile-menu").fadeOut("fast");
-  });
+  $('#close-button').on('click', () => {
+    $('#mobile-menu').fadeOut('fast')
+  })
 
-  $("#open-button").on("click", () => {
-    $("#mobile-menu").fadeIn("fast");
-  });
-});
+  $('#open-button').on('click', () => {
+    $('#mobile-menu').fadeIn('fast')
+  })
+})
