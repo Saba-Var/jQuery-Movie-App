@@ -2,11 +2,46 @@ import theMovieDbConfig from '../../services/the-movie-db-config.js'
 import { fetchMovies } from '../../services/movie-service.js'
 
 jQuery(() => {
-  const fetchPopularMovies = async () => {
-    let movieList = []
+  let page = 1
+  let movieList = []
 
+  const appendHandler = (list) => {
+    list.forEach((movie) => {
+      $('#movie-list').append(`
+      <li class="relative scale lg:mb-6">
+      <div
+        class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
+      >
+        <img
+        class="pointer-events-none object-cover group-hover:opacity-75"
+          src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}"
+          alt="${movie?.title}"
+        />
+        <button type="button" class="absolute inset-0 focus:outline-none">
+          <span class="sr-only">View details for IMG_4985.HEIC</span>
+        </button>
+      </div>
+      <p
+        class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
+      >
+          ${movie?.title}
+        </p>
+      <div class="flex items-center gap-2 mt-1">
+        <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
+        <p
+        class="pointer-events-none block text-base font-medium text-slate-200"
+        >
+          ${movie?.vote_average}
+        </p>
+      </div>
+    </li>
+      `)
+    })
+  }
+
+  const fetchPopularMovies = async () => {
     try {
-      const response = await fetchMovies('popular')
+      const response = await fetchMovies('popular', page)
 
       if (response?.status === 200) {
         movieList = response?.data?.results
@@ -33,37 +68,7 @@ jQuery(() => {
           )
         })
 
-        movieList.forEach((movie) => {
-          $('#movie-list').append(`
-          <li class="relative scale lg:mb-6">
-          <div
-            class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
-          >
-            <img
-            class="pointer-events-none object-cover group-hover:opacity-75"
-              src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}"
-              alt="${movie?.title}"
-            />
-            <button type="button" class="absolute inset-0 focus:outline-none">
-              <span class="sr-only">View details for IMG_4985.HEIC</span>
-            </button>
-          </div>
-          <p
-            class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
-          >
-              ${movie?.title}
-            </p>
-          <div class="flex items-center gap-2 mt-1">
-            <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
-            <p
-            class="pointer-events-none block text-base font-medium text-slate-200"
-            >
-              ${movie?.vote_average}
-            </p>
-          </div>
-        </li>
-          `)
-        })
+        appendHandler(movieList)
       }
     } catch (error) {
       alert(error?.response?.data?.status_message)
@@ -71,6 +76,21 @@ jQuery(() => {
   }
 
   fetchPopularMovies()
+
+  $('#load-more').on('click', async () => {
+    try {
+      page++
+
+      const response = await fetchMovies('popular', page)
+
+      if (response?.status === 200) {
+        const newMovieList = response?.data?.results
+        appendHandler(newMovieList)
+      }
+    } catch (error) {
+      alert(error?.response?.data?.status_message)
+    }
+  })
 
   const sliderHandler = (operator) => {
     const slideWidth = $('#slide').width()
