@@ -21,12 +21,24 @@
     .cursor-not-allowed {
       cursor: not-allowed;
     }
+
+    .hide {
+      display: none;
+    }
   </style>
 
   <body>
+    <button
+      class="fixed bg-main-red scale text-main-black shadow-2xl font-bold bottom-10 right-10 rounded-full p-4 text-2xl z-[9999]"
+      id="scroll-up"
+    >
+      Up
+    </button>
+
     <div class="relative bg-black pb-20">
       <div
-        class="px-6 pt-6 lg:px-8 absolute z-50 left-1/2 -translate-x-1/2 w-full"
+        id="navbar-container"
+        class="px-6 py-6 lg:px-8 fixed bg-main-black z-50 left-1/2 -translate-x-1/2 w-full"
       >
         <div>
           <nav

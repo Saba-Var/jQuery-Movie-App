@@ -3,31 +3,21 @@ import { fetchMovies } from '../../services/movie-service.js'
 import sliderHandler from '../../utils/slideHandler.js'
 
 jQuery(() => {
-  let popularPage = 1
-  let upcomingPage = 1
+  let upcomingMoviesPage = 1
+  let popularMoviesPage = 1
+
   let movieList = []
 
   const fetchPopularMovies = async () => {
     try {
-      const response = await fetchMovies('popular', popularPage)
+      const response = await fetchMovies('popular', popularMoviesPage)
 
       if (response?.status === 200) {
         movieList = response?.data?.results
 
-        const randomMovies = []
+        const shuffled = movieList.sort(() => 0.5 - Math.random())
 
-        for (let i = 0; i < 3; i++) {
-          const randomMovie =
-            movieList[Math.floor(Math.random() * movieList.length)]
-
-          if (!randomMovies.includes(randomMovie)) {
-            randomMovies.push(randomMovie)
-          } else {
-            i--
-          }
-        }
-
-        randomMovies.forEach((movie) => {
+        shuffled.forEach((movie) => {
           $('#slides-container').append(
             `<li class="slide relative" id="slide">
               <img class="w-full lg:w-[85%] xl:w-[75%] h-full mx-auto" src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}" 
@@ -45,7 +35,7 @@ jQuery(() => {
 
   const fetchUpcomingMovies = async () => {
     try {
-      const response = await fetchMovies('upcoming', upcomingPage)
+      const response = await fetchMovies('upcoming', upcomingMoviesPage)
 
       if (response?.status === 200) {
         const upcomingMovieList = response?.data?.results
@@ -75,11 +65,11 @@ jQuery(() => {
   }
 
   $('#load-more').on('click', async () => {
-    loadMoreMovies(popularPage, 'popular', '#movie-list')
+    loadMoreMovies(popularMoviesPage, 'popular', '#movie-list')
   })
 
   $('#upcoming-load-more').on('click', async () => {
-    loadMoreMovies(upcomingPage, 'upcoming', '#upcoming-movie-list')
+    loadMoreMovies(upcomingMoviesPage, 'upcoming', '#upcoming-movie-list')
   })
 
   $('#slide-arrow-next').on('click', () => {
@@ -88,6 +78,37 @@ jQuery(() => {
 
   $('#slide-arrow-prev').on('click', () => {
     sliderHandler('-=')
+  })
+
+  $('#scroll-up').hide()
+
+  let prevScrollPosition = window.pageYOffset
+
+  $(window).on('scroll', () => {
+    const currentScrollPosition = window.pageYOffset
+
+    if (prevScrollPosition > currentScrollPosition) {
+      $('#navbar-container').fadeIn('slow')
+
+      if (currentScrollPosition > 500) {
+        $('#scroll-up').fadeIn('slow')
+      }
+    } else {
+      $('#navbar-container').fadeOut('slow')
+      if (currentScrollPosition > 500) {
+        $('#scroll-up').fadeOut('slow')
+      }
+    }
+
+    if (window.pageYOffset < 500) {
+      $('#scroll-up').fadeOut('slow')
+    }
+
+    prevScrollPosition = currentScrollPosition
+  })
+
+  $('#scroll-up').on('click', () => {
+    $('html, body').animate({ scrollTop: 0 }, 500)
   })
 
   const appendMovies = (id, list) => {
