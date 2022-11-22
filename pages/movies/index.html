@@ -12,9 +12,18 @@
     <script type="module" src="./index.js"></script>
     <title>Movies</title>
   </head>
+
+  <style>
+    .slide {
+      flex: 1 0 100%;
+    }
+  </style>
+
   <body>
-    <div class="isolate h-screen w-full bg-black">
-      <div class="px-6 pt-6 lg:px-8">
+    <div class="relative bg-black">
+      <div
+        class="px-6 pt-6 lg:px-8 absolute z-50 left-1/2 -translate-x-1/2 w-full"
+      >
         <div>
           <nav
             class="flex h-9 items-center justify-between"
@@ -67,68 +76,84 @@
               ></div>
             </div>
           </nav>
+        </div>
+      </div>
 
-          <div role="dialog" aria-modal="true" id="mobile-menu">
-            <div
-              focus="true"
-              class="fixed inset-0 z-10 overflow-y-auto bg-gray-900 px-6 py-6 lg:hidden"
-            >
-              <div class="flex h-9 items-center justify-between">
-                <div class="flex">
-                  <a href="#" class="-m-1.5 p-1.5">
-                    <span class="sr-only">Logo</span>
-                    <img
-                      class="h-8"
-                      src="../../assets/images/logo.png"
-                      alt=""
-                    />
-                  </a>
-                </div>
-                <div class="flex">
-                  <button
-                    id="close-button"
-                    type="button"
-                    class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
-                  >
-                    <span class="sr-only">Close menu</span>
-                    <svg
-                      class="h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="mt-6 flow-root">
-                <div class="-my-6 divide-y divide-gray-800">
-                  <div
-                    class="flex flex-col justify-between items-center h-[60vh] py-20"
-                  >
-                    <a href="/pages/movies/index.html" class="mobile-nav-link"
-                      >Movies</a
-                    >
-                    <a href="#" class="mobile-nav-link">TvSeries</a>
-                    <a href="#" class="mobile-nav-link">Actors</a>
-                    <a href="#" class="mobile-nav-link">Trailers</a>
-                  </div>
-                </div>
+      <div role="dialog" class="z-[99999]" aria-modal="true" id="mobile-menu">
+        <div
+          focus="true"
+          class="fixed inset-0 z-[99999] overflow-y-auto bg-gray-900 px-6 py-6 lg:hidden"
+        >
+          <div class="flex h-9 items-center justify-between">
+            <div class="flex">
+              <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Logo</span>
+                <img class="h-8" src="../../assets/images/logo.png" alt="" />
+              </a>
+            </div>
+            <div class="flex">
+              <button
+                id="close-button"
+                type="button"
+                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
+              >
+                <span class="sr-only">Close menu</span>
+                <svg
+                  class="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="mt-6 flow-root">
+            <div class="-my-6 divide-y divide-gray-800">
+              <div
+                class="flex flex-col justify-between items-center h-[60vh] py-20"
+              >
+                <a href="/pages/movies/index.html" class="mobile-nav-link"
+                  >Movies</a
+                >
+                <a href="#" class="mobile-nav-link">TvSeries</a>
+                <a href="#" class="mobile-nav-link">Actors</a>
+                <a href="#" class="mobile-nav-link">Trailers</a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <main></main>
+      <main>
+        <section class="relative h-screen">
+          <button
+            class="absolute left-2 lg:left-8 bottom-1/2 translate-y-1/2 h-16 border-none w-8 text-7xl cursor-pointer opacity-80 transition-opacity hover:opacity-100 text-white hover:text-main-red"
+            id="slide-arrow-prev"
+          >
+            &#8249;
+          </button>
+          <button
+            class="absolute right-2 lg:right-8 bottom-1/2 translate-y-1/2 h-16 border-none w-8 text-7xl p-0 cursor-pointer opacity-80 transition-opacity hover:opacity-100 text-white hover:text-main-red"
+            id="slide-arrow-next"
+          >
+            &#8250;
+          </button>
+
+          <ul
+            class="h-full mx-auto flex pt-20 w-full list-none scroll-smooth p-0 overflow-hidden"
+            id="slides-container"
+          ></ul>
+        </section>
+      </main>
     </div>
   </body>
 </html>
