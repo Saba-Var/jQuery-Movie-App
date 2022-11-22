@@ -29,22 +29,6 @@ jQuery(() => {
             </li>`
           )
         })
-
-        const sliderHandler = (operator) => {
-          const slideWidth = $('#slide').width()
-          $('#slides-container').animate(
-            { scrollLeft: operator + slideWidth },
-            300
-          )
-        }
-
-        $('#slide-arrow-next').on('click', () => {
-          sliderHandler('+=')
-        })
-
-        $('#slide-arrow-prev').on('click', () => {
-          sliderHandler('-=')
-        })
       }
     } catch (error) {
       alert(error?.response?.data?.status_message)
@@ -52,4 +36,37 @@ jQuery(() => {
   }
 
   fetchPopularMovies()
+
+  const sliderHandler = (operator) => {
+    const slideWidth = $('#slide').width()
+    const currentScrollPosition = $('#slides-container').scrollLeft()
+    const maxScrollPosition =
+      $('#slides-container')[0].scrollWidth - $('#slides-container').width()
+
+    $('#slides-container').animate({ scrollLeft: operator + slideWidth }, 400)
+
+    if (currentScrollPosition === 0) {
+      $('#slide-arrow-prev').addClass('cursor-not-allowed')
+    }
+
+    if (Math.floor(currentScrollPosition) === Math.floor(maxScrollPosition)) {
+      $('#slide-arrow-next').addClass('cursor-not-allowed')
+    }
+
+    if (currentScrollPosition > 0) {
+      $('#slide-arrow-prev').removeClass('cursor-not-allowed')
+    }
+
+    if (currentScrollPosition < maxScrollPosition) {
+      $('#slide-arrow-next').removeClass('cursor-not-allowed')
+    }
+  }
+
+  $('#slide-arrow-next').on('click', () => {
+    sliderHandler('+=')
+  })
+
+  $('#slide-arrow-prev').on('click', () => {
+    sliderHandler('-=')
+  })
 })
