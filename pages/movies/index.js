@@ -3,9 +3,9 @@ import { fetchMovies } from '../../services/movie-service.js'
 
 jQuery(() => {
   const fetchPopularMovies = async () => {
-    try {
-      let movieList = []
+    let movieList = []
 
+    try {
       const response = await fetchMovies('popular')
 
       if (response?.status === 200) {
@@ -26,14 +26,47 @@ jQuery(() => {
 
         randomMovies.forEach((movie) => {
           $('#slides-container').append(
-            `<li class="slide" id="slide">
-              <img class="w-full lg:w-[85%] xl:w-[75%] h-full mx-auto" src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}" alt="${movie?.title}" alt={${movie?.title}} /> 
+            `<li class="slide relative" id="slide">
+              <img class="w-full lg:w-[85%] xl:w-[75%] h-full mx-auto" src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}" 
+                alt={${movie?.title}} /> 
             </li>`
           )
         })
+
+        movieList.forEach((movie) => {
+          $('#movie-list').append(`
+          <li class="relative scale lg:mb-6">
+          <div
+            class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
+          >
+            <img
+            class="pointer-events-none object-cover group-hover:opacity-75"
+              src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}"
+              alt="${movie?.title}"
+            />
+            <button type="button" class="absolute inset-0 focus:outline-none">
+              <span class="sr-only">View details for IMG_4985.HEIC</span>
+            </button>
+          </div>
+          <p
+            class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
+          >
+              ${movie?.title}
+            </p>
+          <div class="flex items-center gap-2 mt-1">
+            <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
+            <p
+            class="pointer-events-none block text-base font-medium text-slate-200"
+            >
+              ${movie?.vote_average}
+            </p>
+          </div>
+        </li>
+          `)
+        })
       }
     } catch (error) {
-      alert(error?.response?.movieList?.status_message)
+      alert(error?.response?.data?.status_message)
     }
   }
 
@@ -48,19 +81,19 @@ jQuery(() => {
     $('#slides-container').animate({ scrollLeft: operator + slideWidth }, 400)
 
     if (currentScrollPosition === 0) {
-      $('#slide-arrow-prev').addClass('cursor-not-allowed')
+      return $('#slide-arrow-prev').addClass('cursor-not-allowed')
     }
 
     if (Math.floor(currentScrollPosition) === Math.floor(maxScrollPosition)) {
-      $('#slide-arrow-next').addClass('cursor-not-allowed')
+      return $('#slide-arrow-next').addClass('cursor-not-allowed')
     }
 
     if (currentScrollPosition > 0) {
-      $('#slide-arrow-prev').removeClass('cursor-not-allowed')
+      return $('#slide-arrow-prev').removeClass('cursor-not-allowed')
     }
 
     if (currentScrollPosition < maxScrollPosition) {
-      $('#slide-arrow-next').removeClass('cursor-not-allowed')
+      return $('#slide-arrow-next').removeClass('cursor-not-allowed')
     }
   }
 
