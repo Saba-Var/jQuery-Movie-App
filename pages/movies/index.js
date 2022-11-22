@@ -2,12 +2,46 @@ import theMovieDbConfig from '../../services/the-movie-db-config.js'
 import { fetchMovies } from '../../services/movie-service.js'
 
 jQuery(() => {
-  let page = 1
+  let popularPage = 1
+  let upcomingPage = 1
   let movieList = []
 
-  const appendHandler = (list) => {
+  const sliderHandler = (operator) => {
+    const slideWidth = $('#slide').width()
+    const currentScrollPosition = $('#slides-container').scrollLeft()
+    const maxScrollPosition =
+      $('#slides-container')[0].scrollWidth - $('#slides-container').width()
+
+    $('#slides-container').animate({ scrollLeft: operator + slideWidth }, 400)
+
+    if (currentScrollPosition === 0) {
+      return $('#slide-arrow-prev').addClass('cursor-not-allowed')
+    }
+
+    if (Math.floor(currentScrollPosition) === Math.floor(maxScrollPosition)) {
+      return $('#slide-arrow-next').addClass('cursor-not-allowed')
+    }
+
+    if (currentScrollPosition > 0) {
+      return $('#slide-arrow-prev').removeClass('cursor-not-allowed')
+    }
+
+    if (currentScrollPosition < maxScrollPosition) {
+      return $('#slide-arrow-next').removeClass('cursor-not-allowed')
+    }
+  }
+
+  $('#slide-arrow-next').on('click', () => {
+    sliderHandler('+=')
+  })
+
+  $('#slide-arrow-prev').on('click', () => {
+    sliderHandler('-=')
+  })
+
+  const appendHandler = (id, list) => {
     list.forEach((movie) => {
-      $('#movie-list').append(`
+      $(id).append(`
       <li class="relative scale lg:mb-6">
       <div
         class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
@@ -41,7 +75,7 @@ jQuery(() => {
 
   const fetchPopularMovies = async () => {
     try {
-      const response = await fetchMovies('popular', page)
+      const response = await fetchMovies('popular', popularPage)
 
       if (response?.status === 200) {
         movieList = response?.data?.results
@@ -68,7 +102,20 @@ jQuery(() => {
           )
         })
 
-        appendHandler(movieList)
+        appendHandler('#movie-list', movieList)
+      }
+    } catch (error) {
+      alert(error?.response?.data?.status_message)
+    }
+  }
+
+  const fetchUpcomingMovies = async () => {
+    try {
+      const response = await fetchMovies('upcoming', upcomingPage)
+
+      if (response?.status === 200) {
+        const upcomingMovieList = response?.data?.results
+        appendHandler('#upcoming-movie-list', upcomingMovieList)
       }
     } catch (error) {
       alert(error?.response?.data?.status_message)
@@ -76,52 +123,35 @@ jQuery(() => {
   }
 
   fetchPopularMovies()
+  fetchUpcomingMovies()
 
   $('#load-more').on('click', async () => {
     try {
-      page++
+      popularPage++
 
-      const response = await fetchMovies('popular', page)
+      const response = await fetchMovies('popular', popularPage)
 
       if (response?.status === 200) {
         const newMovieList = response?.data?.results
-        appendHandler(newMovieList)
+        appendHandler('#movie-list', newMovieList)
       }
     } catch (error) {
       alert(error?.response?.data?.status_message)
     }
   })
 
-  const sliderHandler = (operator) => {
-    const slideWidth = $('#slide').width()
-    const currentScrollPosition = $('#slides-container').scrollLeft()
-    const maxScrollPosition =
-      $('#slides-container')[0].scrollWidth - $('#slides-container').width()
+  $('#upcoming-load-more').on('click', async () => {
+    try {
+      upcomingPage++
 
-    $('#slides-container').animate({ scrollLeft: operator + slideWidth }, 400)
+      const response = await fetchMovies('upcoming', upcomingPage)
 
-    if (currentScrollPosition === 0) {
-      return $('#slide-arrow-prev').addClass('cursor-not-allowed')
+      if (response?.status === 200) {
+        const newUpcomingMovieList = response?.data?.results
+        appendHandler('#upcoming-movie-list', newUpcomingMovieList)
+      }
+    } catch (error) {
+      alert(error?.response?.data?.status_message)
     }
-
-    if (Math.floor(currentScrollPosition) === Math.floor(maxScrollPosition)) {
-      return $('#slide-arrow-next').addClass('cursor-not-allowed')
-    }
-
-    if (currentScrollPosition > 0) {
-      return $('#slide-arrow-prev').removeClass('cursor-not-allowed')
-    }
-
-    if (currentScrollPosition < maxScrollPosition) {
-      return $('#slide-arrow-next').removeClass('cursor-not-allowed')
-    }
-  }
-
-  $('#slide-arrow-next').on('click', () => {
-    sliderHandler('+=')
-  })
-
-  $('#slide-arrow-prev').on('click', () => {
-    sliderHandler('-=')
   })
 })

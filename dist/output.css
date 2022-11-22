@@ -922,6 +922,10 @@ video {
   margin-top: 3rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1048,6 +1052,18 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-44 {
+  height: 11rem;
+}
+
+.h-80 {
+  height: 20rem;
 }
 
 .w-full {
@@ -1590,6 +1606,10 @@ video {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
 }
 
 .gap-x-4 {
