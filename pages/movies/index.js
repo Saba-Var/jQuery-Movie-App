@@ -1,35 +1,86 @@
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
 import { fetchMovies } from '../../services/movie-service.js'
+import sliderHandler from '../../utils/slideHandler.js'
 
 jQuery(() => {
   let popularPage = 1
   let upcomingPage = 1
   let movieList = []
 
-  const sliderHandler = (operator) => {
-    const slideWidth = $('#slide').width()
-    const currentScrollPosition = $('#slides-container').scrollLeft()
-    const maxScrollPosition =
-      $('#slides-container')[0].scrollWidth - $('#slides-container').width()
+  const fetchPopularMovies = async () => {
+    try {
+      const response = await fetchMovies('popular', popularPage)
 
-    $('#slides-container').animate({ scrollLeft: operator + slideWidth }, 400)
+      if (response?.status === 200) {
+        movieList = response?.data?.results
 
-    if (currentScrollPosition === 0) {
-      return $('#slide-arrow-prev').addClass('cursor-not-allowed')
-    }
+        const randomMovies = []
 
-    if (Math.floor(currentScrollPosition) === Math.floor(maxScrollPosition)) {
-      return $('#slide-arrow-next').addClass('cursor-not-allowed')
-    }
+        for (let i = 0; i < 3; i++) {
+          const randomMovie =
+            movieList[Math.floor(Math.random() * movieList.length)]
 
-    if (currentScrollPosition > 0) {
-      return $('#slide-arrow-prev').removeClass('cursor-not-allowed')
-    }
+          if (!randomMovies.includes(randomMovie)) {
+            randomMovies.push(randomMovie)
+          } else {
+            i--
+          }
+        }
 
-    if (currentScrollPosition < maxScrollPosition) {
-      return $('#slide-arrow-next').removeClass('cursor-not-allowed')
+        randomMovies.forEach((movie) => {
+          $('#slides-container').append(
+            `<li class="slide relative" id="slide">
+              <img class="w-full lg:w-[85%] xl:w-[75%] h-full mx-auto" src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}" 
+                alt={${movie?.title}} /> 
+            </li>`
+          )
+        })
+
+        appendMovies('#movie-list', movieList)
+      }
+    } catch (error) {
+      alert(error?.response?.data?.status_message)
     }
   }
+
+  const fetchUpcomingMovies = async () => {
+    try {
+      const response = await fetchMovies('upcoming', upcomingPage)
+
+      if (response?.status === 200) {
+        const upcomingMovieList = response?.data?.results
+        appendMovies('#upcoming-movie-list', upcomingMovieList)
+      }
+    } catch (error) {
+      alert(error?.response?.data?.status_message)
+    }
+  }
+
+  fetchPopularMovies()
+  fetchUpcomingMovies()
+
+  const loadMoreMovies = async (page, category, containerId) => {
+    try {
+      page++
+
+      const response = await fetchMovies(category, page)
+
+      if (response?.status === 200) {
+        const newList = response?.data?.results
+        appendMovies(containerId, newList)
+      }
+    } catch (error) {
+      alert(error?.response?.data?.status_message)
+    }
+  }
+
+  $('#load-more').on('click', async () => {
+    loadMoreMovies(popularPage, 'popular', '#movie-list')
+  })
+
+  $('#upcoming-load-more').on('click', async () => {
+    loadMoreMovies(upcomingPage, 'upcoming', '#upcoming-movie-list')
+  })
 
   $('#slide-arrow-next').on('click', () => {
     sliderHandler('+=')
@@ -39,7 +90,7 @@ jQuery(() => {
     sliderHandler('-=')
   })
 
-  const appendHandler = (id, list) => {
+  const appendMovies = (id, list) => {
     list.forEach((movie) => {
       $(id).append(`
       <li class="relative scale lg:mb-6">
@@ -72,86 +123,4 @@ jQuery(() => {
       `)
     })
   }
-
-  const fetchPopularMovies = async () => {
-    try {
-      const response = await fetchMovies('popular', popularPage)
-
-      if (response?.status === 200) {
-        movieList = response?.data?.results
-
-        const randomMovies = []
-
-        for (let i = 0; i < 3; i++) {
-          const randomMovie =
-            movieList[Math.floor(Math.random() * movieList.length)]
-
-          if (!randomMovies.includes(randomMovie)) {
-            randomMovies.push(randomMovie)
-          } else {
-            i--
-          }
-        }
-
-        randomMovies.forEach((movie) => {
-          $('#slides-container').append(
-            `<li class="slide relative" id="slide">
-              <img class="w-full lg:w-[85%] xl:w-[75%] h-full mx-auto" src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}" 
-                alt={${movie?.title}} /> 
-            </li>`
-          )
-        })
-
-        appendHandler('#movie-list', movieList)
-      }
-    } catch (error) {
-      alert(error?.response?.data?.status_message)
-    }
-  }
-
-  const fetchUpcomingMovies = async () => {
-    try {
-      const response = await fetchMovies('upcoming', upcomingPage)
-
-      if (response?.status === 200) {
-        const upcomingMovieList = response?.data?.results
-        appendHandler('#upcoming-movie-list', upcomingMovieList)
-      }
-    } catch (error) {
-      alert(error?.response?.data?.status_message)
-    }
-  }
-
-  fetchPopularMovies()
-  fetchUpcomingMovies()
-
-  $('#load-more').on('click', async () => {
-    try {
-      popularPage++
-
-      const response = await fetchMovies('popular', popularPage)
-
-      if (response?.status === 200) {
-        const newMovieList = response?.data?.results
-        appendHandler('#movie-list', newMovieList)
-      }
-    } catch (error) {
-      alert(error?.response?.data?.status_message)
-    }
-  })
-
-  $('#upcoming-load-more').on('click', async () => {
-    try {
-      upcomingPage++
-
-      const response = await fetchMovies('upcoming', upcomingPage)
-
-      if (response?.status === 200) {
-        const newUpcomingMovieList = response?.data?.results
-        appendHandler('#upcoming-movie-list', newUpcomingMovieList)
-      }
-    } catch (error) {
-      alert(error?.response?.data?.status_message)
-    }
-  })
 })
