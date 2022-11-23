@@ -4,7 +4,7 @@ const theMovieDbConfig = {
 
   imageStorageBaseUrl: 'https://image.tmdb.org/t/p',
 
-  originalImage: (originalImagePath) => {
+  getImageUri: (originalImagePath) => {
     return `https://image.tmdb.org/t/p/original${originalImagePath}`
   },
 

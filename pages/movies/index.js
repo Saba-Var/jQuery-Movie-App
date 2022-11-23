@@ -18,16 +18,40 @@ jQuery(() => {
         const shuffled = movieList.sort(() => 0.5 - Math.random())
 
         shuffled.forEach((movie) => {
-          theMovieDbConfig.originalImage()
+          theMovieDbConfig.getImageUri()
 
-          const background = theMovieDbConfig.originalImage(
+          const background = theMovieDbConfig.getImageUri(
             movie.backdrop_path ? movie.backdrop_path : movie.poster_path
           )
-
           $('#slides-container').append(
-            `<li class="slide relative" id="slide">
-                <img class="w-full brightness-50 h-full mx-auto" src="${background}?api_key=${theMovieDbConfig.apiKey}"
-                 alt={${movie?.title}} />
+            `<li class="slide relative h-[50vh] w-screen sm:h-screen" id="slide">
+              <div class="w-full brightness-50">
+                <img class="h-[50vh] sm:h-screen w-full" src="${background}?api_key=${
+              theMovieDbConfig.apiKey
+            }"
+                />
+              </div>
+
+              <div class="absolute left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] top-[45%] -translate-y-1/2">
+                <div class="flex justify-between gap-10 items-center">
+                  <div class="w-1/2 flex flex-col gap-10">
+                    <p class="text-main-red text-2xl sm:text-3xl lg:text-4xl font-bold">${
+                      movie.title
+                    }</p>
+                    <p class="text-white overflow-hidden h-[165px] text-ellipsis text-base font-bold">${
+                      movie.overview
+                    }</p>
+                  </div>
+
+                  <div>
+                  <img class="w-[150px] sm:w-[220px] lg:w-[300px] top-0 left-1" src="${theMovieDbConfig.getImageUri(
+                    movie.poster_path
+                  )}?api_key=${theMovieDbConfig.apiKey}" 
+                    alt={${movie?.title}} 
+                    />
+                    </div>
+                </div>
+              </div>
             </li>`
           )
         })
@@ -119,37 +143,37 @@ jQuery(() => {
 
   const appendMovies = (id, list) => {
     list.forEach((movie) => {
-      const background = theMovieDbConfig.originalImage(
+      const background = theMovieDbConfig.getImageUri(
         movie.backdrop_path ? movie.backdrop_path : movie.poster_path
       )
 
       $(id).append(`
       <li class="relative scale lg:mb-6">
-      <div
-        class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
-      >
-        <img
-        class="pointer-events-none object-cover group-hover:opacity-75"
-          // src="${background}?api_key=${theMovieDbConfig.apiKey}"
-          alt="${movie?.title}"
-        />
-        <button type="button" class="absolute inset-0 focus:outline-none">
-          <span class="sr-only">View details for IMG_4985.HEIC</span>
-        </button>
-      </div>
-      <p
-        class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
-      >
-          ${movie?.title}
-        </p>
-      <div class="flex items-center gap-2 mt-1">
-        <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
-        <p
-        class="pointer-events-none block text-base font-medium text-slate-200"
+        <div
+          class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
         >
-          ${movie?.vote_average}
-        </p>
-      </div>
+          <img
+          class="pointer-events-none object-cover group-hover:opacity-75"
+            src="${background}?api_key=${theMovieDbConfig.apiKey}"
+            alt="${movie?.title}"
+          />
+          <button type="button" class="absolute inset-0 focus:outline-none">
+            <span class="sr-only">View details for IMG_4985.HEIC</span>
+          </button>
+        </div>
+        <p
+          class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
+        >
+            ${movie?.title}
+          </p>
+        <div class="flex items-center gap-2 mt-1">
+          <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
+          <p
+          class="pointer-events-none block text-base font-medium text-slate-200"
+          >
+            ${movie?.vote_average}
+          </p>
+        </div>
     </li>
       `)
     })
