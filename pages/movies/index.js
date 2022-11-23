@@ -18,10 +18,16 @@ jQuery(() => {
         const shuffled = movieList.sort(() => 0.5 - Math.random())
 
         shuffled.forEach((movie) => {
+          theMovieDbConfig.originalImage()
+
+          const background = theMovieDbConfig.originalImage(
+            movie.backdrop_path ? movie.backdrop_path : movie.poster_path
+          )
+
           $('#slides-container').append(
             `<li class="slide relative" id="slide">
-              <img class="w-full lg:w-[85%] xl:w-[75%] h-full mx-auto" src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}" 
-                alt={${movie?.title}} /> 
+                <img class="w-full brightness-50 h-full mx-auto" src="${background}?api_key=${theMovieDbConfig.apiKey}"
+                 alt={${movie?.title}} />
             </li>`
           )
         })
@@ -29,7 +35,7 @@ jQuery(() => {
         appendMovies('#movie-list', movieList)
       }
     } catch (error) {
-      alert(error?.response?.data?.status_message)
+      console.log('popular movie fetch failed')
     }
   }
 
@@ -42,7 +48,7 @@ jQuery(() => {
         appendMovies('#upcoming-movie-list', upcomingMovieList)
       }
     } catch (error) {
-      alert(error?.response?.data?.status_message)
+      console.log('upcoming movies fetch failed')
     }
   }
 
@@ -60,7 +66,7 @@ jQuery(() => {
         appendMovies(containerId, newList)
       }
     } catch (error) {
-      alert(error?.response?.data?.status_message)
+      console.log('load movies failed')
     }
   }
 
@@ -113,6 +119,10 @@ jQuery(() => {
 
   const appendMovies = (id, list) => {
     list.forEach((movie) => {
+      const background = theMovieDbConfig.originalImage(
+        movie.backdrop_path ? movie.backdrop_path : movie.poster_path
+      )
+
       $(id).append(`
       <li class="relative scale lg:mb-6">
       <div
@@ -120,7 +130,7 @@ jQuery(() => {
       >
         <img
         class="pointer-events-none object-cover group-hover:opacity-75"
-          src="${theMovieDbConfig.imageStorageBaseUrl}/original${movie?.poster_path}?api_key=${theMovieDbConfig.apiKey}"
+          // src="${background}?api_key=${theMovieDbConfig.apiKey}"
           alt="${movie?.title}"
         />
         <button type="button" class="absolute inset-0 focus:outline-none">
