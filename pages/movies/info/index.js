@@ -1,6 +1,9 @@
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
-import { fetchMovieDetails } from '../../../services/movie-service.js'
 import queryParams from '../../../utils/queryParams.js'
+import {
+  fetchMovieDetails,
+  fetchActors,
+} from '../../../services/movie-service.js'
 
 jQuery(() => {
   const movieId = queryParams.id
@@ -96,7 +99,40 @@ jQuery(() => {
     }
   }
 
+  const fetchActorsList = async () => {
+    try {
+      const response = await fetchActors(movieId)
+
+      if (response?.status === 200) {
+        const cast = response?.data?.cast
+
+        cast.slice(1, 7).forEach((actor) => {
+          $('#cast').append(`
+            <div class="w-[150px] scale cursor-pointer sm:w-[190px] border-[3px] border-main-red rounded-lg overflow-hidden">
+                <img class="sm:h-[210px] w-full mx-auto" src="${theMovieDbConfig.getW500ImageUri(
+                  actor?.profile_path
+                )}" 
+                    alt=${actor?.name}
+                />
+                <div class="px-1 py-2">
+                    <p class="text-center text-lg text-white font-semibold">${
+                      actor?.original_name
+                    }</p>
+                    <p class="text-center text-sm text-slate-400">${
+                      actor?.character
+                    }</p>
+                </div>
+            </div>
+        `)
+        })
+      }
+    } catch (error) {
+      console.log('actors list fetch failed')
+    }
+  }
+
   if (movieId) {
     fetchUpcomingMovies()
+    fetchActorsList()
   }
 })

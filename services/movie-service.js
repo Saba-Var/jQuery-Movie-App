@@ -10,3 +10,9 @@ export const fetchMovies = (uri, page = 1) => {
 export const fetchMovieDetails = (id) => {
   return axiosInstance.get(`/movie/${id}?api_key=${theMovieDbConfig.apiKey}`)
 }
+
+export const fetchActors = (id) => {
+  return axiosInstance.get(
+    `/movie/${id}/credits?api_key=${theMovieDbConfig.apiKey}`
+  )
+}
