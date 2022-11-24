@@ -4,28 +4,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../css/styles.css" />
-    <link href="../../dist/output.css" rel="stylesheet" />
-    <script src="../../node_modules/axios/dist/axios.min.js"></script>
-    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="../../../css/styles.css" />
+    <link href="../../../dist/output.css" rel="stylesheet" />
+    <script src="../../../node_modules/axios/dist/axios.min.js"></script>
+    <script src="../../../node_modules/jquery/dist/jquery.js"></script>
     <script type="module" src="/index.js"></script>
     <script type="module" src="./index.js"></script>
-    <title>Movies</title>
+    <title>Document</title>
+
+    <style>
+      .slide {
+        flex: 1 0 100%;
+      }
+
+      .cursor-not-allowed {
+        cursor: not-allowed;
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
   </head>
-
-  <style>
-    .slide {
-      flex: 1 0 100%;
-    }
-
-    .cursor-not-allowed {
-      cursor: not-allowed;
-    }
-
-    .hide {
-      display: none;
-    }
-  </style>
 
   <body>
     <button
@@ -35,10 +35,10 @@
       Up
     </button>
 
-    <div class="relative bg-black pb-20">
+    <div class="relative bg-main-black pb-20">
       <div
         id="navbar-container"
-        class="px-6 py-6 lg:px-8 fixed bg-main-black z-[999] left-1/2 -translate-x-1/2 w-full"
+        class="px-6 py-6 lg:px-8 fixed bg-main-black z-50 left-1/2 -translate-x-1/2 w-full"
       >
         <div>
           <nav
@@ -48,7 +48,7 @@
             <div class="flex lg:min-w-0 lg:flex-1" aria-label="Global">
               <a href="/index.html" class="-m-1.5 p-1.5">
                 <span class="sr-only">Logo</span>
-                <img class="h-8" src="../../assets/images/logo.png" alt="" />
+                <img class="h-8" src="../../../assets/images/logo.png" alt="" />
               </a>
             </div>
             <div class="flex lg:hidden">
@@ -104,7 +104,7 @@
             <div class="flex">
               <a href="#" class="-m-1.5 p-1.5">
                 <span class="sr-only">Logo</span>
-                <img class="h-8" src="../../assets/images/logo.png" alt="" />
+                <img class="h-8" src="../../../assets/images/logo.png" alt="" />
               </a>
             </div>
             <div class="flex">
@@ -149,64 +149,71 @@
         </div>
       </div>
 
-      <main>
-        <section class="relative sm:h-screen">
-          <button
-            class="absolute z-[99] select-none left-2 lg:left-8 bottom-10 sm:bottom-1/2 translate-y-1/2 h-16 border-none w-8 text-7xl lg:text-9xl cursor-pointer transition-opacity hover:opacity-100 text-white hover:text-main-red"
-            id="slide-arrow-prev"
-          >
-            &#8249;
-          </button>
-          <button
-            class="absolute z-[99] right-2 select-none lg:right-8 bottom-10 sm:bottom-1/2 translate-y-1/2 h-16 border-none w-8 text-7xl lg:text-9xl p-0 cursor-pointer transition-opacity hover:opacity-100 text-white hover:text-main-red"
-            id="slide-arrow-next"
-          >
-            &#8250;
-          </button>
+      <main class="bg-main-black pt-14">
+        <div class="bg-main-black">
+          <div>
+            <div id="movie-images"></div>
 
-          <ul
-            class="h-full mx-auto flex pt-20 w-full list-none scroll-smooth p-0 overflow-hidden"
-            id="slides-container"
-          ></ul>
-        </section>
-
-        <div>
-          <section class="px-4 md:px-10 lg:px-20 mt-44">
-            <p class="text-3xl text-slate-100 mb-10">Popular movies</p>
-            <ul
-              role="list"
-              id="movie-list"
-              class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-10 2xl:grid-cols-4 2xl:gap-x-14"
-            ></ul>
-          </section>
-
-          <div class="w-full flex items-center mt-4">
-            <button
-              id="load-more"
-              class="border border-white p-2 scale rounded text-white text-2xl mx-auto cursor-pointer"
+            <!-- Product info -->
+            <div
+              class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24"
             >
-              Load more
-            </button>
-          </div>
-        </div>
+              <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                <h1
+                  class="text-3xl font-bold tracking-tight text-main-red sm:text-4xl"
+                >
+                  Movie Overview
+                </h1>
+              </div>
 
-        <div>
-          <section class="px-4 md:px-10 lg:px-20 mt-44">
-            <p class="text-3xl text-slate-100 mb-10">Upcoming movies</p>
-            <ul
-              role="list"
-              id="upcoming-movie-list"
-              class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-10 2xl:grid-cols-4 2xl:gap-x-14"
-            ></ul>
-          </section>
+              <!-- Options -->
+              <div class="mt-4 lg:row-span-3 lg:mt-0">
+                <h2 class="sr-only">Product information</h2>
 
-          <div class="w-full flex items-center mt-4">
-            <button
-              id="upcoming-load-more"
-              class="border border-white p-2 scale rounded text-white text-2xl mx-auto cursor-pointer"
-            >
-              Load more
-            </button>
+                <!-- Reviews -->
+                <div class="mt-6">
+                  <h3 class="sr-only">Reviews</h3>
+                  <p class="text-xl font-medium text-main-red mt-4">Rating</p>
+                  <div class="flex items-center">
+                    <div id="stars" class="flex items-center"></div>
+                    <p class="sr-only">4 out of 5 stars</p>
+                    <div href="#" class="ml-3 text-sm font-medium text-white">
+                      <span id="reviews">0</span> reviews
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xl font-medium text-main-red mt-4 mb-1">
+                    Genres
+                  </p>
+                  <div id="genres-container" class="flex flex-wrap gap-3"></div>
+                </div>
+
+                <div>
+                  <p class="text-xl font-medium text-main-red mt-4">Budget</p>
+                  <p id="budget" class="text-base tracking-tight text-white">
+                    $ 0
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8"
+              >
+                <!-- Description and details -->
+                <div>
+                  <h3 class="sr-only">Description</h3>
+                  <div class="space-y-6">
+                    <div>
+                      <p class="text-xl font-medium text-main-red">
+                        Description
+                      </p>
+                      <p id="overview" class="text-base text-white"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>

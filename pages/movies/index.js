@@ -56,7 +56,7 @@ jQuery(() => {
           )
         })
 
-        appendMovies('#movie-list', movieList)
+        appendMovies('#movie-list', movieList, 'popular')
       }
     } catch (error) {
       console.log('popular movie fetch failed')
@@ -69,7 +69,7 @@ jQuery(() => {
 
       if (response?.status === 200) {
         const upcomingMovieList = response?.data?.results
-        appendMovies('#upcoming-movie-list', upcomingMovieList)
+        appendMovies('#upcoming-movie-list', upcomingMovieList, 'upcoming')
       }
     } catch (error) {
       console.log('upcoming movies fetch failed')
@@ -87,7 +87,7 @@ jQuery(() => {
 
       if (response?.status === 200) {
         const newList = response?.data?.results
-        appendMovies(containerId, newList)
+        appendMovies(containerId, newList, category)
       }
     } catch (error) {
       console.log('load movies failed')
@@ -110,38 +110,7 @@ jQuery(() => {
     sliderHandler('-=')
   })
 
-  $('#scroll-up').hide()
-
-  let prevScrollPosition = window.pageYOffset
-
-  $(window).on('scroll', () => {
-    const currentScrollPosition = window.pageYOffset
-
-    if (prevScrollPosition > currentScrollPosition) {
-      $('#navbar-container').fadeIn('slow')
-
-      if (currentScrollPosition > 500) {
-        $('#scroll-up').fadeIn('slow')
-      }
-    } else {
-      $('#navbar-container').fadeOut('slow')
-      if (currentScrollPosition > 500) {
-        $('#scroll-up').fadeOut('slow')
-      }
-    }
-
-    if (window.pageYOffset < 500) {
-      $('#scroll-up').fadeOut('slow')
-    }
-
-    prevScrollPosition = currentScrollPosition
-  })
-
-  $('#scroll-up').on('click', () => {
-    $('html, body').animate({ scrollTop: 0 }, 500)
-  })
-
-  const appendMovies = (id, list) => {
+  const appendMovies = (id, list, type) => {
     list.forEach((movie) => {
       const background = theMovieDbConfig.getImageUri(
         movie.backdrop_path ? movie.backdrop_path : movie.poster_path
@@ -149,31 +118,32 @@ jQuery(() => {
 
       $(id).append(`
       <li class="relative scale lg:mb-6">
-        <div
+        <a
           class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
-        >
+          href="/pages/movies/info/index.html?id=${movie.id}&type=${type}"
+          >
           <img
-          class="pointer-events-none object-cover group-hover:opacity-75"
+          class="pointer-events-none object-cover group-hover:brightness-50"
             src="${background}?api_key=${theMovieDbConfig.apiKey}"
             alt="${movie?.title}"
           />
           <button type="button" class="absolute inset-0 focus:outline-none">
             <span class="sr-only">View details for IMG_4985.HEIC</span>
           </button>
-        </div>
+        </a>
         <p
           class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
         >
             ${movie?.title}
           </p>
-        <div class="flex items-center gap-2 mt-1">
+        <a class="flex items-center gap-2 mt-1">
           <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
           <p
           class="pointer-events-none block text-base font-medium text-slate-200"
           >
             ${movie?.vote_average}
           </p>
-        </div>
+        </a>
     </li>
       `)
     })
