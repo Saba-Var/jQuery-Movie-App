@@ -16,3 +16,9 @@ export const fetchActors = (id) => {
     `/movie/${id}/credits?api_key=${theMovieDbConfig.apiKey}`
   )
 }
+
+export const fetchVideos = (id) => {
+  return axiosInstance.get(
+    `/movie/${id}/videos?api_key=${theMovieDbConfig.apiKey}`
+  )
+}

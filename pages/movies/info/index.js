@@ -1,7 +1,9 @@
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
 import queryParams from '../../../utils/queryParams.js'
+import sortVideos from '../../../utils/sortVideos.js'
 import {
   fetchMovieDetails,
+  fetchVideos,
   fetchActors,
 } from '../../../services/movie-service.js'
 
@@ -18,6 +20,7 @@ jQuery(() => {
 
         for (let i = 0; i < 5; i++) {
           starCount--
+
           $('#stars').append(`
           <svg
             class="${
@@ -55,8 +58,6 @@ jQuery(() => {
             movieData?.budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         )
 
-        theMovieDbConfig.getImageUri()
-
         const background = theMovieDbConfig.getImageUri(
           movieData.backdrop_path
             ? movieData.backdrop_path
@@ -79,9 +80,9 @@ jQuery(() => {
                       movieData?.title
                     }</p>
 
-                    <p class="text-white text-xl sm:text-2xl font-bold">${
+                    <p class="text-slate-100 italic text-xl sm:text-2xl font-bold">"${
                       movieData?.tagline
-                    }</p>
+                    }"</p>
                   </div>
 
                   <div>
@@ -133,8 +134,31 @@ jQuery(() => {
     }
   }
 
+  const fetchMovieVideos = async () => {
+    try {
+      const response = await fetchVideos(movieId)
+
+      if (response?.status) {
+        let videoList = response?.data?.results.sort(sortVideos)
+
+        videoList.slice(0, 3).forEach((video) => {
+          const src = `https://www.youtube.com/embed/${video?.key}`
+          $('#video-gallery').append(`
+          <div class="w-[90%] lg:w-[63%] mx-auto">
+            <p class="text-main-red text-2xl">${video?.name}</p>
+            <iframe src="${src}" class="w-full  mt-4 h-[50vh] lg:h-[70vh]" ></iframe>
+          </div>
+          `)
+        })
+      }
+    } catch (error) {
+      console.log('video fetch failed')
+    }
+  }
+
   if (movieId) {
     fetchUpcomingMovies()
     fetchActorsList()
+    fetchMovieVideos()
   }
 })
