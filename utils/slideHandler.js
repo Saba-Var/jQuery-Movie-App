@@ -3,7 +3,7 @@ const sliderHandler = (operator) => {
 
   $('#slides-container').animate(
     { scrollLeft: operator + Math.floor(slideWidth) },
-    500
+    400
   )
 }
 

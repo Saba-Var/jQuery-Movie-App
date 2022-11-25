@@ -21,7 +21,7 @@ jQuery(() => {
           $('#stars').append(`
           <svg
             class="${
-              starCount >= 0 ? 'text-white' : 'text-gray-600'
+              starCount >= 0 ? 'text-yellow-400' : 'text-slate-500'
             } h-5 w-5 flex-shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -40,7 +40,9 @@ jQuery(() => {
         $('#movie-name').text(movieData?.title)
         $('#overview').text(movieData?.overview)
         $('#reviews').text(movieData?.vote_count)
-        movieData?.genres.forEach((genre) => {
+        $('#release-date').text(movieData?.release_date)
+
+        movieData?.genres?.forEach((genre) => {
           $('#genres-container').append(`
             <p class="text-base w-fit border py-1 px-3 border-white rounded-2xl text-white">
                 ${genre.name}
