@@ -16,20 +16,20 @@ jQuery(() => {
     const currentScrollPosition = window.pageYOffset
 
     if (prevScrollPosition > currentScrollPosition) {
-      $('#navbar-container').fadeIn('slow')
+      $('#navbar-container').fadeIn('fast')
 
       if (currentScrollPosition > 500) {
-        $('#scroll-up').fadeIn('slow')
+        $('#scroll-up').fadeIn('fast')
       }
     } else {
-      $('#navbar-container').fadeOut('slow')
+      $('#navbar-container').fadeOut('fast')
       if (currentScrollPosition > 500) {
-        $('#scroll-up').fadeOut('slow')
+        $('#scroll-up').fadeOut('fast')
       }
     }
 
     if (window.pageYOffset < 500) {
-      $('#scroll-up').fadeOut('slow')
+      $('#scroll-up').fadeOut('fast')
     }
 
     prevScrollPosition = currentScrollPosition
