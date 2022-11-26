@@ -10,7 +10,7 @@ import {
 jQuery(() => {
   const movieId = queryParams.id
 
-  const fetchUpcomingMovies = async () => {
+  const fetchMovies = async () => {
     try {
       const response = await fetchMovieDetails(movieId)
 
@@ -80,9 +80,9 @@ jQuery(() => {
                       movieData?.title
                     }</p>
 
-                    <p class="text-slate-100 italic text-xl sm:text-2xl font-bold">"${
-                      movieData?.tagline
-                    }"</p>
+                    <p class="text-slate-100 italic text-xl sm:text-2xl font-bold">${
+                      movieData?.tagline ? `"${movieData?.tagline}"` : ''
+                    }</p>
                   </div>
 
                   <div>
@@ -157,7 +157,7 @@ jQuery(() => {
   }
 
   if (movieId) {
-    fetchUpcomingMovies()
+    fetchMovies()
     fetchActorsList()
     fetchMovieVideos()
   }
