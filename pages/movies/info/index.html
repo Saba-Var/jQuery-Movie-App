@@ -226,7 +226,7 @@
 
                   <div
                     id="cast"
-                    class="mt-4 flex flex-wrap gap-3 sm:gap-10 justify-center xl:justify-between"
+                    class="mt-4 flex flex-wrap gap-3 sm:gap-10 md:gap-20 justify-center xl:justify-between"
                   ></div>
                 </div>
               </div>
@@ -234,8 +234,27 @@
           </div>
         </div>
 
-        <div class="flex flex-col gap-14" id="video-gallery"></div>
+        <div class="flex flex-col gap-14 lg:gap-32" id="video-gallery"></div>
       </main>
     </div>
+
+    <footer class="bg-main-black border-t border-slate-400">
+      <div class="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+        <div class="mt-2 flex justify-center space-x-6">
+          <div>
+            <span class="sr-only">logo</span>
+            <img
+              class="w-8 h-8"
+              src="../../../assets/images/logo.png"
+              alt="logo"
+            />
+          </div>
+        </div>
+        <p class="mt-8 text-center text-base text-gray-300">
+          &copy; <span id="current-year"></span> jQuery Movie App. All rights
+          reserved.
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

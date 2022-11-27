@@ -146,9 +146,9 @@ jQuery(() => {
         videoList.slice(0, 3).forEach((video) => {
           const src = `https://www.youtube.com/embed/${video?.key}`
           $('#video-gallery').append(`
-          <div class="w-[90%] lg:w-[63%] mx-auto">
+          <div class="w-[90%] lg:w-[90%] mx-auto">
             <p class="text-main-red text-2xl">${video?.name}</p>
-            <iframe src="${src}" allowfullscreen class="w-full  mt-4 h-[50vh] lg:h-[70vh]" ></iframe>
+            <iframe src="${src}" allowfullscreen class="w-full  mt-4 h-[50vh] lg:h-[80vh]" ></iframe>
           </div>
           `)
         })

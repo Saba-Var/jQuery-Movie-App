@@ -10,6 +10,9 @@ jQuery(() => {
     $('#mobile-menu').fadeIn('fast')
   })
 
+  const currentYear = new Date().getFullYear()
+  $('#current-year').text(currentYear)
+
   let prevScrollPosition = window.pageYOffset
 
   $(window).on('scroll', () => {
