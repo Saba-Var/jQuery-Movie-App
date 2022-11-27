@@ -2,7 +2,6 @@
 
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
 import { fetchMovies } from '../../services/movie-service.js'
-import sliderHandler from '../../utils/slideHandler.js'
 
 jQuery(() => {
   let upcomingMoviesPage = 1
@@ -103,6 +102,15 @@ jQuery(() => {
   $('#upcoming-load-more').on('click', async () => {
     loadMoreMovies(upcomingMoviesPage, 'upcoming', '#upcoming-movie-list')
   })
+
+  const sliderHandler = (operator) => {
+    const slideWidth = $('#slide').width()
+
+    $('#slides-container').animate(
+      { scrollLeft: operator + Math.floor(slideWidth) },
+      400
+    )
+  }
 
   $('#slide-arrow-next').on('click', () => {
     sliderHandler('+=')

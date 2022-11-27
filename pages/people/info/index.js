@@ -2,6 +2,7 @@
 
 import { fetchPerson, movieCredits } from '../../../services/people-service.js'
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
+import slideHandler from '../../../utils/slideHandler.js'
 import queryParams from '../../../utils/queryParams.js'
 
 jQuery(() => {
@@ -13,7 +14,6 @@ jQuery(() => {
 
       if (response.status === 200) {
         const person = response?.data
-        console.log(person)
 
         $('#person-image').html(
           `
@@ -47,7 +47,9 @@ jQuery(() => {
         })
         $('#biography').text(person.biography)
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('person details fetch failed')
+    }
   }
 
   const fetchMovieCredits = async () => {
@@ -81,35 +83,11 @@ jQuery(() => {
           `)
         })
 
-        const slider = document.getElementById('movie-credits')
-
-        let isDown = false
-        let scrollLeft = 0
-        let startX = 0
-
-        $('#movie-credits')
-          .on('mousedown', (e) => {
-            isDown = true
-            startX = e.pageX - slider.offsetLeft
-            scrollLeft = slider.scrollLeft
-          })
-          .on('mouseleave', () => {
-            isDown = false
-          })
-          .on('mouseup', () => {
-            isDown = false
-          })
-          .on('mousemove', (e) => {
-            if (!isDown) {
-              return
-            }
-            e.preventDefault()
-            const x = e.pageX - slider.offsetLeft
-            const move = (x - startX) * 3
-            slider.scrollLeft = scrollLeft - move
-          })
+        slideHandler('movie-credits')
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('movie credits fetch failed')
+    }
   }
 
   fetchPersonData()

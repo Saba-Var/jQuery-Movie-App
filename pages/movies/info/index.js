@@ -1,6 +1,7 @@
 'use strict'
 
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
+import slideHandler from '../../../utils/slideHandler.js'
 import queryParams from '../../../utils/queryParams.js'
 import sortVideos from '../../../utils/sortVideos.js'
 import {
@@ -111,26 +112,30 @@ jQuery(() => {
       if (response?.status === 200) {
         const cast = response?.data?.cast
 
-        cast.slice(1, 7).forEach((actor) => {
+        cast?.forEach((actor) => {
           $('#cast').append(`
-            <a
-              href="/pages/people/info/index.html?id=${actor?.id}"
-              class="w-[150px] scale cursor-pointer sm:w-[190px] border-[3px] border-main-red rounded-lg overflow-hidden">
-                <img class="sm:h-[210px] w-full mx-auto" src="${theMovieDbConfig.getW500ImageUri(
-                  actor?.profile_path
-                )}" 
-                    alt=${actor?.name}
-                />
-                <div class="px-1 py-2">
-                    <p class="text-center text-lg text-white font-semibold">${
-                      actor?.original_name
-                    }</p>
-                    <p class="text-center text-sm text-slate-400">${
-                      actor?.character
-                    }</p>
+            <li>
+                <a
+                href="/pages/people/info/index.html?id=${actor.id}" 
+                class="flex flex-col items-center w-44"
+                >
+                   <img
+                   src="${theMovieDbConfig.getW500ImageUri(
+                     actor?.profile_path
+                   )}"
+                   alt="${actor?.name}"
+                 />
+                 <div class="px-1 py-2">
+                   <p class="text-center text-lg text-white font-semibold">
+                     ${actor?.original_name}
+                   </p>
+                   <p class="text-center text-sm text-slate-400">${
+                     actor?.character
+                   }</p>
                 </div>
-            </a>
-        `)
+                </a>
+            </li>
+          `)
         })
       }
     } catch (error) {
@@ -150,8 +155,8 @@ jQuery(() => {
             const src = `https://www.youtube.com/embed/${video?.key}`
             $('#video-gallery').append(`
             <div class="w-[90%] lg:w-[90%] mx-auto">
-            <p class="text-main-red text-2xl">${video?.name}</p>
-            <iframe src="${src}" allowfullscreen class="w-full  mt-4 h-[50vh] lg:h-[80vh]" ></iframe>
+              <p class="text-main-red text-2xl">${video?.name}</p>
+              <iframe src="${src}" allowfullscreen class="w-full  mt-4 h-[50vh] lg:h-[80vh]" ></iframe>
             </div>
             `)
           })
@@ -163,6 +168,8 @@ jQuery(() => {
       console.log('video fetch failed')
     }
   }
+
+  slideHandler('cast')
 
   if (movieId) {
     fetchMovies()

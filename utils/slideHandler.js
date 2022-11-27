@@ -1,12 +1,31 @@
-'use strict'
+const slideHandler = (containerId) => {
+  const slider = document.getElementById(containerId)
 
-const sliderHandler = (operator) => {
-  const slideWidth = $('#slide').width()
+  let isDown = false
+  let scrollLeft = 0
+  let startX = 0
 
-  $('#slides-container').animate(
-    { scrollLeft: operator + Math.floor(slideWidth) },
-    400
-  )
+  return $(`#${containerId}`)
+    .on('mousedown', (e) => {
+      isDown = true
+      startX = e.pageX - slider.offsetLeft
+      scrollLeft = slider.scrollLeft
+    })
+    .on('mouseleave', () => {
+      isDown = false
+    })
+    .on('mouseup', () => {
+      isDown = false
+    })
+    .on('mousemove', (e) => {
+      if (!isDown) {
+        return
+      }
+      e.preventDefault()
+      const x = e.pageX - slider.offsetLeft
+      const move = (x - startX) * 3
+      slider.scrollLeft = scrollLeft - move
+    })
 }
 
-export default sliderHandler
+export default slideHandler
