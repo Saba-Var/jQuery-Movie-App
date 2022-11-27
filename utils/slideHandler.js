@@ -1,3 +1,5 @@
+'use strict'
+
 const sliderHandler = (operator) => {
   const slideWidth = $('#slide').width()
 

@@ -1,3 +1,5 @@
+'use strict'
+
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
 import queryParams from '../../../utils/queryParams.js'
 import sortVideos from '../../../utils/sortVideos.js'
@@ -146,7 +148,7 @@ jQuery(() => {
           $('#video-gallery').append(`
           <div class="w-[90%] lg:w-[63%] mx-auto">
             <p class="text-main-red text-2xl">${video?.name}</p>
-            <iframe src="${src}" class="w-full  mt-4 h-[50vh] lg:h-[70vh]" ></iframe>
+            <iframe src="${src}" allowfullscreen class="w-full  mt-4 h-[50vh] lg:h-[70vh]" ></iframe>
           </div>
           `)
         })

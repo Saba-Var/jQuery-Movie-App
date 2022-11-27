@@ -1,3 +1,5 @@
+'use strict'
+
 const sortVideos = (a, b) => {
   if (a?.name === 'Official Trailer') {
     return -1

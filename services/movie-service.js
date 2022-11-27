@@ -1,3 +1,5 @@
+'use strict'
+
 import apiKeyParam from '../constants/apiKeyParam.js'
 import axiosInstance from './axios.js'
 

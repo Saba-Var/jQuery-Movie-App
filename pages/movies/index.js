@@ -1,3 +1,5 @@
+'use strict'
+
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
 import { fetchMovies } from '../../services/movie-service.js'
 import sliderHandler from '../../utils/slideHandler.js'
