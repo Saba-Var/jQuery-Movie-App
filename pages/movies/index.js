@@ -118,36 +118,43 @@ jQuery(() => {
         movie.backdrop_path ? movie.backdrop_path : movie.poster_path
       )
 
-      $(id).append(`
-      <li class="relative scale lg:mb-6">
-        <a
-          class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-main-red focus-within:ring-offset-2 focus-within:ring-offset-main-red"
-          href="/pages/movies/info/index.html?id=${movie.id}&type=${type}"
-          >
+      $(id).append(`<li
+      class="relative scale lg:mb-6 border-[3px] border-main-red rounded-lg overflow-hidden pb-3"
+    >
+      <a href="/pages/movies/info/index.html?id=${movie.id}&type=${type}">
+        <div
+          class="group aspect-w-10 aspect-h-7 block w-full border-none overflow-hidden bg-gray-100"
+        >
           <img
-          class="pointer-events-none object-cover group-hover:brightness-50"
+            class="pointer-events-none object-cover group-hover:brightness-50"
             src="${background}?api_key=${theMovieDbConfig.apiKey}"
             alt="${movie?.title}"
           />
           <button type="button" class="absolute inset-0 focus:outline-none">
             <span class="sr-only">View details for IMG_4985.HEIC</span>
           </button>
-        </a>
-        <p
-          class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
-        >
+        </div>
+        <div class="px-2 sm:px-3">
+          <p
+            class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
+          >
             ${movie?.title}
           </p>
-        <a class="flex items-center gap-2 mt-1">
-          <div class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center">rating</div>
-          <p
-          class="pointer-events-none block text-base font-medium text-slate-200"
-          >
-            ${movie?.vote_average}
-          </p>
-        </a>
-    </li>
-      `)
+          <div class="flex items-center gap-2 mt-1">
+            <div
+              class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center"
+            >
+              rating
+            </div>
+            <p
+              class="pointer-events-none block text-base font-medium text-slate-200"
+            >
+              ${movie?.vote_average}
+            </p>
+          </div>
+        </div>
+      </a>
+    </li>`)
     })
   }
 })

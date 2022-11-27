@@ -4,24 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../../css/styles.css" />
-    <link href="../../../dist/output.css" rel="stylesheet" />
-    <script src="../../../node_modules/axios/dist/axios.min.js"></script>
-    <script src="../../../node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <link href="../../dist/output.css" rel="stylesheet" />
+    <script src="../../node_modules/axios/dist/axios.min.js"></script>
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
     <script type="module" src="/index.js"></script>
     <script type="module" src="./index.js"></script>
-    <title>Movie info</title>
-
-    <style>
-      .cursor-not-allowed {
-        cursor: not-allowed;
-      }
-
-      .hide {
-        display: none;
-      }
-    </style>
+    <title>People</title>
   </head>
+
+  <style>
+    .cursor-not-allowed {
+      cursor: not-allowed;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
 
   <body class="bg-main-black">
     <button
@@ -34,7 +34,7 @@
     <div class="relative bg-main-black pb-20">
       <div
         id="navbar-container"
-        class="px-6 py-6 lg:px-8 fixed bg-main-black z-50 left-1/2 -translate-x-1/2 w-full"
+        class="px-6 py-6 lg:px-8 top-0 fixed bg-main-black z-[999] left-1/2 -translate-x-1/2 w-full"
       >
         <div>
           <nav
@@ -44,7 +44,7 @@
             <div class="flex lg:min-w-0 lg:flex-1" aria-label="Global">
               <a href="/index.html" class="-m-1.5 p-1.5">
                 <span class="sr-only">Logo</span>
-                <img class="h-8" src="../../../assets/images/logo.png" alt="" />
+                <img class="h-8" src="../../assets/images/logo.png" alt="" />
               </a>
             </div>
             <div class="flex lg:hidden">
@@ -101,7 +101,7 @@
             <div class="flex">
               <a href="#" class="-m-1.5 p-1.5">
                 <span class="sr-only">Logo</span>
-                <img class="h-8" src="../../../assets/images/logo.png" alt="" />
+                <img class="h-8" src="../../assets/images/logo.png" alt="" />
               </a>
             </div>
             <div class="flex">
@@ -138,8 +138,8 @@
                   >Movies</a
                 >
                 <a href="#" class="mobile-nav-link">TvSeries</a>
-                <a href="/pages/people/index.html" class="mobile-nav-link"
-                  >People</a
+                <a href="/pages/actors/index.html" class="mobile-nav-link"
+                  >Actors</a
                 >
               </div>
             </div>
@@ -147,92 +147,28 @@
         </div>
       </div>
 
-      <main class="bg-main-black pt-14">
-        <div class="bg-main-black">
-          <div>
-            <div id="movie-images"></div>
+      <main>
+        <div>
+          <section class="px-4 md:px-10 lg:px-20 mt-24">
+            <p class="text-3xl text-slate-100 mb-10 font-semibold">
+              Popular People
+            </p>
+            <ul
+              role="list"
+              id="actors-list"
+              class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-10 2xl:grid-cols-4 2xl:gap-x-14"
+            ></ul>
+          </section>
 
-            <div
-              class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24"
+          <div class="w-full flex items-center mt-4">
+            <button
+              id="load-more"
+              class="border border-white p-2 scale rounded text-white text-2xl mx-auto cursor-pointer"
             >
-              <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                <h1
-                  class="text-3xl font-bold tracking-tight text-main-red sm:text-4xl"
-                >
-                  Movie Overview
-                </h1>
-              </div>
-
-              <div class="mt-4 lg:row-span-3 lg:mt-8">
-                <h2 class="sr-only">Product information</h2>
-
-                <div class="mt-6">
-                  <h3 class="sr-only">Reviews</h3>
-                  <p class="text-xl font-medium text-main-red mt-4">Rating</p>
-                  <div class="flex items-center">
-                    <div id="stars" class="flex items-center"></div>
-                    <p class="sr-only">stars out of 5</p>
-                    <div href="#" class="ml-3 text-sm font-medium text-white">
-                      <span id="reviews">0</span> reviews
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-xl font-medium text-main-red mt-4 mb-1">
-                    Genres
-                  </p>
-                  <div id="genres-container" class="flex flex-wrap gap-3"></div>
-                </div>
-
-                <div>
-                  <p class="text-xl font-medium text-main-red mt-4">Budget</p>
-                  <p id="budget" class="text-base tracking-tight text-white">
-                    $ 0
-                  </p>
-                </div>
-
-                <div>
-                  <p class="text-xl font-medium text-main-red mt-4">
-                    Release Date
-                  </p>
-                  <p
-                    id="release-date"
-                    class="text-base tracking-tight text-white"
-                  ></p>
-                </div>
-              </div>
-
-              <div
-                class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8"
-              >
-                <div>
-                  <h3 class="sr-only">Description</h3>
-                  <div class="space-y-6">
-                    <div>
-                      <p class="text-xl font-medium text-main-red">
-                        Description
-                      </p>
-                      <p id="overview" class="text-base text-white"></p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mt-10">
-                  <h3 class="text-xl font-medium text-main-red text-center">
-                    Cast
-                  </h3>
-
-                  <div
-                    id="cast"
-                    class="mt-4 flex flex-wrap gap-3 sm:gap-10 md:gap-20 justify-center xl:justify-between"
-                  ></div>
-                </div>
-              </div>
-            </div>
+              Load more
+            </button>
           </div>
         </div>
-
-        <div class="flex flex-col gap-14 lg:gap-32" id="video-gallery"></div>
       </main>
     </div>
 

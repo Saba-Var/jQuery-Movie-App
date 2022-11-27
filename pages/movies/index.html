@@ -27,7 +27,7 @@
     }
   </style>
 
-  <body>
+  <body class="bg-main-black">
     <button
       class="fixed bg-main-red scale text-main-black shadow-2xl font-bold bottom-10 right-10 rounded-full p-4 text-2xl z-[9999]"
       id="scroll-up"
@@ -82,8 +82,9 @@
                 >Movies</a
               >
               <a href="#" class="desktop-nav-link">TvSeries</a>
-              <a href="#" class="desktop-nav-link">Actors</a>
-              <a href="#" class="desktop-nav-link">Trailers</a>
+              <a href="/pages/people/index.html" class="desktop-nav-link"
+                >People</a
+              >
             </div>
             <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
               <div
@@ -141,8 +142,9 @@
                   >Movies</a
                 >
                 <a href="#" class="mobile-nav-link">TvSeries</a>
-                <a href="#" class="mobile-nav-link">Actors</a>
-                <a href="#" class="mobile-nav-link">Trailers</a>
+                <a href="/pages/people/index.html" class="mobile-nav-link"
+                  >People</a
+                >
               </div>
             </div>
           </div>
@@ -172,7 +174,9 @@
 
         <div>
           <section class="px-4 md:px-10 lg:px-20 mt-44">
-            <p class="text-3xl text-slate-100 mb-10">Popular movies</p>
+            <p class="text-3xl text-slate-100 mb-10 font-semibold">
+              Popular movies
+            </p>
             <ul
               role="list"
               id="movie-list"
@@ -192,7 +196,9 @@
 
         <div>
           <section class="px-4 md:px-10 lg:px-20 mt-44">
-            <p class="text-3xl text-slate-100 mb-10">Upcoming movies</p>
+            <p class="text-3xl text-slate-100 mb-10 font-semibold">
+              Upcoming movies
+            </p>
             <ul
               role="list"
               id="upcoming-movie-list"
