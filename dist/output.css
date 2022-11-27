@@ -837,8 +837,8 @@ video {
   left: 0.25rem;
 }
 
-.left-0 {
-  left: 0px;
+.top-1\/2 {
+  top: 50%;
 }
 
 .isolate {
@@ -959,6 +959,10 @@ video {
   margin-top: 0.25rem;
 }
 
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -973,14 +977,6 @@ video {
 
 .mt-12 {
   margin-top: 3rem;
-}
-
-.mt-20 {
-  margin-top: 5rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .box-border {
@@ -1119,6 +1115,10 @@ video {
   height: 165px;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -1149,6 +1149,10 @@ video {
 
 .w-\[150px\] {
   width: 150px;
+}
+
+.w-20 {
+  width: 5rem;
 }
 
 .w-5 {
@@ -1245,10 +1249,6 @@ video {
 
 .transform-none {
   transform: none;
-}
-
-.cursor-not-allowed {
-  cursor: not-allowed;
 }
 
 .cursor-pointer {
@@ -2151,11 +2151,6 @@ video {
   border-color: rgb(255 0 0 / var(--tw-border-opacity));
 }
 
-.border-red-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(185 28 28 / var(--tw-border-opacity));
-}
-
 .bg-gray-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
@@ -2184,11 +2179,6 @@ video {
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-orange-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(234 88 12 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2381,6 +2371,11 @@ video {
   padding-bottom: 3rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-\[3px\] {
   padding-left: 3px;
   padding-right: 3px;
@@ -2401,16 +2396,6 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -2427,6 +2412,10 @@ video {
   padding-bottom: 5rem;
 }
 
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+
 .pt-\[1px\] {
   padding-top: 1px;
 }
@@ -2441,18 +2430,6 @@ video {
 
 .pb-16 {
   padding-bottom: 4rem;
-}
-
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
-.pb-3 {
-  padding-bottom: 0.75rem;
 }
 
 .text-left {
@@ -2696,14 +2673,14 @@ video {
   color: rgb(226 232 240 / var(--tw-text-opacity));
 }
 
-.text-slate-500 {
-  --tw-text-opacity: 1;
-  color: rgb(100 116 139 / var(--tw-text-opacity));
-}
-
 .text-slate-400 {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
 }
 
 .text-\[\#336699\]\/\[\.35\] {
@@ -3102,23 +3079,25 @@ video {
   background: rgb(164, 7, 7);
 }
 
-.focus-within\:ring-2:focus-within {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+.slide {
+  flex: 1 0 100%;
 }
 
-.focus-within\:ring-main-red:focus-within {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(255 0 0 / var(--tw-ring-opacity));
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 
-.focus-within\:ring-offset-2:focus-within {
-  --tw-ring-offset-width: 2px;
+.hide {
+  display: none;
 }
 
-.focus-within\:ring-offset-main-red:focus-within {
-  --tw-ring-offset-color: #ff0000;
+#item-card:hover #play-icon-container {
+  display: block;
+}
+
+#item-card:hover #background-image {
+  -webkit-filter: brightness(60%);
+  transition: all 0.5s ease;
 }
 
 .hover\:bg-red-700:hover {
@@ -3227,6 +3206,10 @@ video {
     height: 100vh;
   }
 
+  .sm\:h-28 {
+    height: 7rem;
+  }
+
   .sm\:h-\[210px\] {
     height: 210px;
   }
@@ -3237,6 +3220,10 @@ video {
 
   .sm\:w-\[220px\] {
     width: 220px;
+  }
+
+  .sm\:w-28 {
+    width: 7rem;
   }
 
   .sm\:w-full {
@@ -3359,12 +3346,20 @@ video {
     display: none;
   }
 
+  .lg\:h-40 {
+    height: 10rem;
+  }
+
   .lg\:h-\[80vh\] {
     height: 80vh;
   }
 
   .lg\:w-\[300px\] {
     width: 300px;
+  }
+
+  .lg\:w-40 {
+    width: 10rem;
   }
 
   .lg\:w-\[90\%\] {

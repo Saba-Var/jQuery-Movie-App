@@ -32,3 +32,28 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(164, 7, 7);
 }
+
+.slide {
+  flex: 1 0 100%;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.hide {
+  display: none;
+}
+
+#item-card:hover #play-icon-container {
+  display: block;
+}
+
+#item-card:hover #background-image {
+  -webkit-filter: brightness(60%);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
