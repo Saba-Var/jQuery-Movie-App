@@ -1,14 +1,14 @@
 'use strict'
 
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
-import { fetchActors } from '../../services/actor-service.js'
+import { fetchPeople } from '../../services/people-service.js'
 
 jQuery(() => {
   let currentPage = 1
 
   const fetchPopularActors = async () => {
     try {
-      const response = await fetchActors('popular', currentPage)
+      const response = await fetchPeople('popular', currentPage)
 
       if (response?.status === 200) {
         response?.data?.results?.forEach((actor) => {
@@ -18,7 +18,7 @@ jQuery(() => {
               <li
               class="relative scale lg:mb-6 border-[3px] border-main-red rounded-lg overflow-hidden pb-3"
             >
-              <a href="/pages/actors/info/index.html?id=${actor.id}">
+              <a href="/pages/people/info/index.html?id=${actor.id}">
                 <div
                   class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden bg-gray-100"
                 >
@@ -58,15 +58,6 @@ jQuery(() => {
   fetchPopularActors()
 
   $('#load-more').on('click', async () => {
-    try {
-      currentPage++
-
-      const response = await fetchPopularActors(currentPage)
-
-      if (response?.status === 200) {
-      }
-    } catch (error) {
-      console.log('actors fetch failed')
-    }
+    fetchPopularActors()
   })
 })

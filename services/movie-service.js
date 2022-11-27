@@ -11,7 +11,7 @@ export const fetchMovieDetails = (id) => {
   return axiosInstance.get(`/movie/${id}?${apiKeyParam}`)
 }
 
-export const fetchActors = (id) => {
+export const fetchPeople = (id) => {
   return axiosInstance.get(`/movie/${id}/credits?${apiKeyParam}`)
 }
 

@@ -6,7 +6,7 @@ import sortVideos from '../../../utils/sortVideos.js'
 import {
   fetchMovieDetails,
   fetchVideos,
-  fetchActors,
+  fetchPeople,
 } from '../../../services/movie-service.js'
 
 jQuery(() => {
@@ -106,14 +106,16 @@ jQuery(() => {
 
   const fetchActorsList = async () => {
     try {
-      const response = await fetchActors(movieId)
+      const response = await fetchPeople(movieId)
 
       if (response?.status === 200) {
         const cast = response?.data?.cast
 
         cast.slice(1, 7).forEach((actor) => {
           $('#cast').append(`
-            <div class="w-[150px] scale cursor-pointer sm:w-[190px] border-[3px] border-main-red rounded-lg overflow-hidden">
+            <a
+              href="/pages/people/info/index.html?id=${actor?.id}"
+              class="w-[150px] scale cursor-pointer sm:w-[190px] border-[3px] border-main-red rounded-lg overflow-hidden">
                 <img class="sm:h-[210px] w-full mx-auto" src="${theMovieDbConfig.getW500ImageUri(
                   actor?.profile_path
                 )}" 
@@ -127,7 +129,7 @@ jQuery(() => {
                       actor?.character
                     }</p>
                 </div>
-            </div>
+            </a>
         `)
         })
       }
@@ -143,15 +145,19 @@ jQuery(() => {
       if (response?.status) {
         let videoList = response?.data?.results.sort(sortVideos)
 
-        videoList.slice(0, 3).forEach((video) => {
-          const src = `https://www.youtube.com/embed/${video?.key}`
-          $('#video-gallery').append(`
-          <div class="w-[90%] lg:w-[90%] mx-auto">
+        if (videoList.length > 0) {
+          videoList.slice(0, 3).forEach((video) => {
+            const src = `https://www.youtube.com/embed/${video?.key}`
+            $('#video-gallery').append(`
+            <div class="w-[90%] lg:w-[90%] mx-auto">
             <p class="text-main-red text-2xl">${video?.name}</p>
             <iframe src="${src}" allowfullscreen class="w-full  mt-4 h-[50vh] lg:h-[80vh]" ></iframe>
-          </div>
-          `)
-        })
+            </div>
+            `)
+          })
+        } else {
+          $('#videos-container').hide()
+        }
       }
     } catch (error) {
       console.log('video fetch failed')
