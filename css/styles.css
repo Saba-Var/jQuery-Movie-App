@@ -57,7 +57,7 @@
   display: block;
 }
 
-#item-card:hover #background-image {
+#item-card:hover img {
   -webkit-filter: brightness(60%);
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;

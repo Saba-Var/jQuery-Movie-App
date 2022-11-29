@@ -1,6 +1,7 @@
 'use strict'
 
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
+import imageHandler from '../../utils/imageHandler.js'
 import { fetchPeople } from '../../services/people-service.js'
 
 jQuery(() => {
@@ -12,19 +13,26 @@ jQuery(() => {
 
       if (response?.status === 200) {
         response?.data?.results?.forEach((actor) => {
-          const imageSrc = theMovieDbConfig.getImageUri(actor?.profile_path)
+          const id = actor?.id
+
+          const { src } = imageHandler(
+            `#${id}`,
+            theMovieDbConfig.getImageUri(actor?.profile_path),
+            'default-avatar2.jpg'
+          )
 
           $('#actors-list').append(`
               <li
               class="relative scale lg:mb-6 border-[3px] border-main-red rounded-lg overflow-hidden pb-3"
             >
-              <a href="/pages/people/info/index.html?id=${actor.id}">
+              <a href="/pages/people/info/index.html?id=${id}">
                 <div
                   class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden bg-gray-100"
                 >
                   <img
+                    id="${id}"
                     class="pointer-events-none object-cover group-hover:brightness-50"
-                    src="${imageSrc}?api_key=${theMovieDbConfig.apiKey}"
+                    src="${src}"
                     alt="${actor?.title}"
                   />
                   <button type="button" class="absolute inset-0 focus:outline-none">
