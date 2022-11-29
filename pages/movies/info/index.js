@@ -2,7 +2,7 @@
 
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
 import imageHandler from '../../../utils/imageHandler.js'
-import slideHandler from '../../../utils/slideHandler.js'
+import sliderHandler from '../../../utils/sliderHandler.js'
 import queryParams from '../../../utils/queryParams.js'
 import sortVideos from '../../../utils/sortVideos.js'
 import {
@@ -174,7 +174,7 @@ jQuery(() => {
     }
   }
 
-  slideHandler('cast')
+  sliderHandler('cast')
 
   if (movieId) {
     fetchMovies()

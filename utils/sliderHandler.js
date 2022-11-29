@@ -1,6 +1,6 @@
 'use strict'
 
-const slideHandler = (containerId) => {
+const sliderHandler = (containerId) => {
   const slider = document.getElementById(containerId)
 
   let isDown = false
@@ -34,4 +34,4 @@ const slideHandler = (containerId) => {
   })
 }
 
-export default slideHandler
+export default sliderHandler

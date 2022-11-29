@@ -2,7 +2,7 @@
 
 import { fetchPerson, movieCredits } from '../../../services/people-service.js'
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
-import slideHandler from '../../../utils/slideHandler.js'
+import sliderHandler from '../../../utils/sliderHandler.js'
 import imageHandler from '../../../utils/imageHandler.js'
 import queryParams from '../../../utils/queryParams.js'
 
@@ -30,7 +30,6 @@ jQuery(() => {
               class="rounded-2xl mx-auto w-60 lg:mx-0"
               alt="${person.name}" 
               src="${src}" 
-
             />
             <p class="text-main-red lg:text-start text-center mt-2 text-3xl font-semibold">${person.name}</p>
           </div> 
@@ -45,10 +44,11 @@ jQuery(() => {
           new Date().getFullYear() - new Date(person.birthday).getFullYear()
         $('#age').text(`(${age} years old)`)
 
-        person?.also_known_as?.forEach((name, i) => {
+        person?.also_known_as?.forEach((name, i, arr) => {
+          console.log(arr)
           $('#also-known-as').append(`
             <span class="mr-1">
-            ${name}${i !== person.also_known_as.length - 1 && ','}
+              ${name}${i !== arr.length - 1 ? ',' : ''}
             </span>
             `)
         })
@@ -114,7 +114,7 @@ jQuery(() => {
           `)
         })
 
-        slideHandler('movie-credits')
+        sliderHandler('movie-credits')
       }
     } catch (error) {
       console.log('movie credits fetch failed')

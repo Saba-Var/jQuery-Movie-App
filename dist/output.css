@@ -3260,10 +3260,6 @@ video {
     height: 7rem;
   }
 
-  .sm\:h-14 {
-    height: 3.5rem;
-  }
-
   .sm\:w-\[80\%\] {
     width: 80%;
   }
@@ -3278,10 +3274,6 @@ video {
 
   .sm\:w-full {
     width: 100%;
-  }
-
-  .sm\:w-14 {
-    width: 3.5rem;
   }
 
   .sm\:px-6 {
