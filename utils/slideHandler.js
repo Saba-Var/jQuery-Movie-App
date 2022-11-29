@@ -1,3 +1,5 @@
+'use strict'
+
 const slideHandler = (containerId) => {
   const slider = document.getElementById(containerId)
 
@@ -5,19 +7,22 @@ const slideHandler = (containerId) => {
   let scrollLeft = 0
   let startX = 0
 
-  return $(`#${containerId}`)
-    .on('mousedown', (e) => {
+  return $(`#${containerId}`).on({
+    mousedown: (e) => {
       isDown = true
       startX = e.pageX - slider.offsetLeft
       scrollLeft = slider.scrollLeft
-    })
-    .on('mouseleave', () => {
+    },
+
+    mouseleave: () => {
       isDown = false
-    })
-    .on('mouseup', () => {
+    },
+
+    mouseup: () => {
       isDown = false
-    })
-    .on('mousemove', (e) => {
+    },
+
+    mousemove: (e) => {
       if (!isDown) {
         return
       }
@@ -25,7 +30,8 @@ const slideHandler = (containerId) => {
       const x = e.pageX - slider.offsetLeft
       const move = (x - startX) * 3
       slider.scrollLeft = scrollLeft - move
-    })
+    },
+  })
 }
 
 export default slideHandler
