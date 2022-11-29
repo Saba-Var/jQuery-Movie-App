@@ -71,9 +71,9 @@ jQuery(() => {
         $('#movie-images').html(
           `<li class="slide relative h-[50vh] w-full sm:h-screen" id="slide">
               <div class="w-full brightness-50">
-                <img class="h-[50vh] sm:h-screen w-full" src="${background}?api_key=${
-            theMovieDbConfig.apiKey
-          }"
+                <img class="h-[50vh] sm:h-screen w-full" 
+                  src="${background}?api_key=${theMovieDbConfig.apiKey}"
+                  alt="${movieData?.title}"
                 />
               </div>
 

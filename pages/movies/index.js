@@ -57,7 +57,7 @@ jQuery(() => {
                     id="item-card"
                   >
                     <img
-                      class="w-[150px] sm:w-[220px] lg:w-[300px] top-0 left-1"
+                      class="w-[150px] img sm:w-[220px] lg:w-[300px] top-0 left-1"
                       src="${theMovieDbConfig.getImageUri(
                         movie.poster_path
                       )}?api_key=${theMovieDbConfig.apiKey}"
@@ -163,7 +163,8 @@ jQuery(() => {
           class="group pointer-events-none object-cover group-hover:brightness-50 relative aspect-w-10 aspect-h-7 block w-full border-none overflow-hidden bg-gray-100"
         >
           <img
-          alt="${movie?.title}"
+            class="img"
+            alt="${movie?.title}"
             id="${movie?.id}"
             src="${src}"
           />

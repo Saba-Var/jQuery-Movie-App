@@ -27,12 +27,12 @@ jQuery(() => {
           <div>
             <img 
               id="${person?.id}"
-              class="rounded-2xl mx-auto w-60"
+              class="rounded-2xl mx-auto w-60 lg:mx-0"
               alt="${person.name}" 
               src="${src}" 
 
             />
-            <p class="text-main-red text-center mt-2 text-3xl font-semibold">${person.name}</p>
+            <p class="text-main-red lg:text-start text-center mt-2 text-3xl font-semibold">${person.name}</p>
           </div> 
           `
         )
@@ -78,23 +78,39 @@ jQuery(() => {
           )
 
           $('#movie-credits').append(`
-          <li class="">
-            <a
-              href="/pages/movies/info/index.html?id=${movie.id}"
-              class="flex flex-col items-center w-24 lg:w-48"
-            >
+        <li id="item-card">
+          <a
+            href="/pages/movies/info/index.html?id=${movie.id}"
+            class="flex flex-col items-center w-24 lg:w-48 relative"
+          >
+            <div class="h-20 lg:h-32 w-full relative">
               <img
-              class="h-20 lg:h-32 w-full"
-              id="${movie?.id}" src="${src}" alt="${movie.title}" />
-              <p class="text-main-red text-center mt-2 text-sm font-semibold">
-                ${
-                  movie.title.length > 12
-                    ? movie.title.substring(0, 12) + '...'
-                    : movie.title
-                }
-              </p>
-            </a>
-          </li>
+                class="w-full h-full img"
+                id="${movie?.id}"
+                src="${src}"
+                alt="${movie.title}"
+              />
+
+              <div
+                id="play-icon-container"
+                class="absolute h-10 w-10 lg:h-20 lg:w-20 hide z-[99] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              >
+                <img
+                  id="play-icon"
+                  src="../../../assets/images/play-icon.png"
+                  alt="play icon"
+                />
+              </div>
+            </div>
+            <p class="text-main-red text-center mt-2 text-sm font-semibold">
+              ${
+                movie.title.length > 12
+                  ? movie.title.substring(0, 12) + '...'
+                  : movie.title
+              }
+            </p>
+          </a>
+        </li>
           `)
         })
 
