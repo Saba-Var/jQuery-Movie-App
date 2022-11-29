@@ -25,35 +25,60 @@ jQuery(() => {
             movie.backdrop_path ? movie.backdrop_path : movie.poster_path
           )
           $('#slides-container').append(
-            `<li class="slide relative h-[50vh] w-screen sm:h-screen" id="slide">
+            `
+              <li class="slide relative h-[50vh] w-screen sm:h-screen" id="slide">
               <div class="w-full brightness-50">
-                <img class="h-[50vh] sm:h-screen w-full" src="${background}?api_key=${
-              theMovieDbConfig.apiKey
-            }"
+                <img
+                  src="${background}?api_key=${theMovieDbConfig.apiKey}"
+                  class="h-[50vh] sm:h-screen w-full"
+                  alt="${movie.title}"
+                />
                 />
               </div>
-
-              <div class="absolute left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] top-[45%] -translate-y-1/2">
+          
+              <div
+                class="absolute left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] top-[45%] -translate-y-1/2"
+              >
                 <div class="flex justify-between gap-10 items-center">
                   <div class="w-1/2 flex flex-col gap-10">
-                    <p class="text-main-red text-2xl sm:text-3xl lg:text-4xl font-bold">${
-                      movie.title
-                    }</p>
-                    <p class="text-white overflow-hidden h-[165px] text-ellipsis text-base font-bold">${
-                      movie.overview
-                    }</p>
+                    <p class="text-main-red text-2xl sm:text-3xl lg:text-4xl font-bold">
+                      ${movie.title}
+                    </p>
+                    <p
+                      class="text-white overflow-hidden h-[165px] text-ellipsis text-base font-bold"
+                    >
+                      ${movie.overview}
+                    </p>
                   </div>
-
-                  <div>
-                  <img class="w-[150px] sm:w-[220px] lg:w-[300px] top-0 left-1" src="${theMovieDbConfig.getImageUri(
-                    movie.poster_path
-                  )}?api_key=${theMovieDbConfig.apiKey}" 
-                    alt={${movie?.title}} 
+          
+                  <a
+                    href="/pages/movies/info/index.html?id=${movie.id}"
+                    class="cursor-pointer relative"
+                    id="item-card"
+                  >
+                    <img
+                      class="w-[150px] sm:w-[220px] lg:w-[300px] top-0 left-1"
+                      src="${theMovieDbConfig.getImageUri(
+                        movie.poster_path
+                      )}?api_key=${theMovieDbConfig.apiKey}"
+                      alt="{${movie?.title}}"
+                      id="background-image"
                     />
+                    <div
+                      class="absolute h-20 w-20 hide sm:h-28 sm:w-28 lg:h-40 lg:w-40 z-[99] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                      id="play-icon-container"
+                    >
+                      <img
+                        id="play-icon"
+                        src="../../assets/images/play-icon.png"
+                        alt="play icon"
+                      />
                     </div>
+                  </a>
                 </div>
               </div>
-            </li>`
+            </li>
+              `
           )
         })
 
@@ -127,29 +152,31 @@ jQuery(() => {
       )
 
       $(id).append(
-        `<li
+        `
+    <li
       id="item-card"
       class="relative scale lg:mb-6 border-[3px] border-main-red rounded-lg overflow-hidden pb-3"
-      >
-      <a href="/pages/movies/info/index.html?id=${movie.id}&type=${type}">
+    >
+      <a href="/pages/movies/info/index.html?id=${movie.id}">
         <div
           class="group pointer-events-none object-cover group-hover:brightness-50 relative aspect-w-10 aspect-h-7 block w-full border-none overflow-hidden bg-gray-100"
         >
-           <img
+          <img
             src="${background}?api_key=${theMovieDbConfig.apiKey}"
             alt="${movie?.title}"
             id="background-image"
           />
 
-        <div
-        id="play-icon-container"
-        class="absolute h-20 w-20 hide sm:h-28 sm:w-28 lg:h-40 lg:w-40 z-[99] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" >
-        <img
-          id="play-icon"
-          src="../../assets/images/play-icon.png" 
-          alt="play icon" 
-        />
-      </div>
+          <div
+            id="play-icon-container"
+            class="absolute h-20 w-20 hide sm:h-28 sm:w-28 lg:h-40 lg:w-40 z-[99] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
+            <img
+              id="play-icon"
+              src="../../assets/images/play-icon.png"
+              alt="play icon"
+            />
+          </div>
         </div>
         <div class="px-2 sm:px-3">
           <p
@@ -171,7 +198,8 @@ jQuery(() => {
           </div>
         </div>
       </a>
-    </li>`
+    </li>
+      `
       )
     })
   }
