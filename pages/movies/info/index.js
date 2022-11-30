@@ -1,8 +1,8 @@
 'use strict'
 
 import theMovieDbConfig from '../../../services/the-movie-db-config.js'
-import imageHandler from '../../../utils/imageHandler.js'
 import sliderHandler from '../../../utils/sliderHandler.js'
+import imageHandler from '../../../utils/imageHandler.js'
 import queryParams from '../../../utils/queryParams.js'
 import sortVideos from '../../../utils/sortVideos.js'
 import {
@@ -10,7 +10,6 @@ import {
   fetchVideos,
   fetchPeople,
 } from '../../../services/movie-service.js'
-
 jQuery(() => {
   const movieId = queryParams.id
 

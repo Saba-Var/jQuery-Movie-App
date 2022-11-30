@@ -127,21 +127,27 @@ jQuery(() => {
     loadMoreMovies(upcomingMoviesPage, 'upcoming', '#upcoming-movie-list')
   })
 
-  const sliderHandler = (operator) => {
-    const slideWidth = $('#slide').width()
+  const sliderHandler = (operator, buttonId) => {
+    $(buttonId).attr('disabled', true)
 
     $('#slides-container').animate(
-      { scrollLeft: operator + Math.floor(slideWidth) },
+      { scrollLeft: operator + Math.floor($('#slide').width()) },
       400
     )
+
+    const timeOut = setTimeout(() => {
+      $(buttonId).attr('disabled', false)
+    }, 1000)
+
+    return () => clearTimeout(timeOut)
   }
 
   $('#slide-arrow-next').on('click', () => {
-    sliderHandler('+=')
+    sliderHandler('+=', '#slide-arrow-next')
   })
 
   $('#slide-arrow-prev').on('click', () => {
-    sliderHandler('-=')
+    sliderHandler('-=', '#slide-arrow-prev')
   })
 
   const appendMovies = (id, list, type) => {
