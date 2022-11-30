@@ -82,7 +82,7 @@ jQuery(() => {
             <li id="item-card">
               <a
                 href="/pages/movies/info/index.html?id=${movie.id}"
-                class="flex flex-col items-center w-24 lg:w-48 relative"
+                class="flex scale flex-col items-center w-24 lg:w-48 relative"
               >
                 <div class="h-20 lg:h-32 w-full relative">
                   <img

@@ -15,6 +15,10 @@ export const fetchMovieDetails = (id) => {
   return axiosInstance.get(`/movie/${id}?${apiKeyParam}`)
 }
 
+export const searchMovies = (query) => {
+  return axiosInstance.get(`/search/movie?query=${query}&${apiKeyParam}`)
+}
+
 export const fetchVideos = (id) => {
   return axiosInstance.get(`/movie/${id}/videos?${apiKeyParam}`)
 }

@@ -1,8 +1,8 @@
 'use strict'
 
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
-import imageHandler from '../../utils/imageHandler.js'
 import { fetchMovies } from '../../services/movie-service.js'
+import appendMovies from '../../utils/appendMovies.js'
 
 jQuery(() => {
   let upcomingMoviesPage = 1
@@ -81,7 +81,7 @@ jQuery(() => {
           )
         })
 
-        appendMovies('#movie-list', movieList, 'popular')
+        appendMovies('#movie-list', movieList)
       }
     } catch (error) {
       console.log('popular movie fetch failed')
@@ -94,7 +94,7 @@ jQuery(() => {
 
       if (response?.status === 200) {
         const upcomingMovieList = response?.data?.results
-        appendMovies('#upcoming-movie-list', upcomingMovieList, 'upcoming')
+        appendMovies('#upcoming-movie-list', upcomingMovieList)
       }
     } catch (error) {
       console.log('upcoming movies fetch failed')
@@ -103,13 +103,11 @@ jQuery(() => {
 
   const loadMoreMovies = async (page, category, containerId) => {
     try {
-      page++
-
       const response = await fetchMovies(category, page)
 
       if (response?.status === 200) {
         const newList = response?.data?.results
-        appendMovies(containerId, newList, category)
+        appendMovies(containerId, newList)
       }
     } catch (error) {
       console.log('load movies failed')
@@ -120,10 +118,12 @@ jQuery(() => {
   fetchUpcomingMovies()
 
   $('#load-more').on('click', async () => {
+    popularMoviesPage++
     loadMoreMovies(popularMoviesPage, 'popular', '#movie-list')
   })
 
   $('#upcoming-load-more').on('click', async () => {
+    upcomingMoviesPage++
     loadMoreMovies(upcomingMoviesPage, 'upcoming', '#upcoming-movie-list')
   })
 
@@ -150,65 +150,19 @@ jQuery(() => {
     sliderHandler('-=', '#slide-arrow-prev')
   })
 
-  const appendMovies = (id, list, type) => {
-    list.forEach((movie) => {
-      const imageSrc = theMovieDbConfig.getImageUri(
-        movie.backdrop_path ? movie.backdrop_path : movie.poster_path
-      )
+  const searchHandler = () => {
+    const searchValue = $('#search-input').val().trim()
 
-      const { src } = imageHandler(`#${movie?.id}`, imageSrc, 'not-found.png')
-
-      $(id).append(
-        `
-    <li
-      id="item-card"
-      class="relative scale lg:mb-6 border-[3px] border-main-red rounded-lg overflow-hidden pb-3"
-    >
-      <a href="/pages/movies/info/index.html?id=${movie.id}">
-        <div
-          class="group pointer-events-none object-cover group-hover:brightness-50 relative aspect-w-10 aspect-h-7 block w-full border-none overflow-hidden bg-gray-100"
-        >
-          <img
-            class="img"
-            alt="${movie?.title}"
-            id="${movie?.id}"
-            src="${src}"
-          />
-
-          <div
-            id="play-icon-container"
-            class="absolute h-20 w-20 hide sm:h-28 sm:w-28 lg:h-40 lg:w-40 z-[99] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          >
-            <img
-              id="play-icon"
-              src="../../assets/images/play-icon.png"
-              alt="play icon"
-            />
-          </div>
-        </div>
-        <div class="px-2 sm:px-3">
-          <p
-            class="pointer-events-none mt-2 block truncate text-base lg:text-xl font-medium text-main-red"
-          >
-            ${movie?.title}
-          </p>
-          <div class="flex items-center gap-2 mt-1">
-            <div
-              class="text-yellow-400 text-base border rounded-[4px] px-[3px] pt-[1px] flex items-center"
-            >
-              rating
-            </div>
-            <p
-              class="pointer-events-none block text-base font-medium text-slate-200"
-            >
-              ${movie?.vote_average}
-            </p>
-          </div>
-        </div>
-      </a>
-    </li>
-      `
-      )
-    })
+    if (searchValue) {
+      window.location.href = `/pages/movies/search/index.html?query=${searchValue}`
+    }
   }
+
+  $('#search-icon').on('click', searchHandler)
+
+  $('#search-input').on('keyup', (e) => {
+    if (e.key === 'Enter') {
+      searchHandler()
+    }
+  })
 })

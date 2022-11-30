@@ -124,7 +124,7 @@ jQuery(() => {
             <li>
                 <a
                 href="/pages/people/info/index.html?id=${actor.id}" 
-                class="flex flex-col items-center w-44"
+                class="flex scale flex-col items-center w-44"
                 >
                    <img
                    id="${actor?.id}"
