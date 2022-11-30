@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.scale:hover {
-  transform: scale(1.1);
-  transition: all 0.3s ease-in-out;
-}
-
 @layer base {
   .desktop-nav-link {
     @apply font-semibold text-2xl text-slate-50 hover:text-red-600 decoration-clone scale;
@@ -23,6 +18,23 @@
   .personInfoText {
     @apply text-slate-100 text-base;
   }
+
+  .mobile-navigation {
+    @apply flex flex-col justify-center gap-12 items-center h-[60vh];
+  }
+
+  .cursor-not-allowed {
+    @apply cursor-not-allowed;
+  }
+
+  .hide {
+    @apply hidden;
+  }
+}
+
+.scale:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
 }
 
 ::-webkit-scrollbar {
@@ -43,14 +55,6 @@
 
 .slide {
   flex: 1 0 100%;
-}
-
-.cursor-not-allowed {
-  cursor: not-allowed;
-}
-
-.hide {
-  display: none;
 }
 
 #item-card:hover #play-icon-container {
