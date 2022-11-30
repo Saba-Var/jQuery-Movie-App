@@ -66,6 +66,7 @@ jQuery(() => {
   fetchPopularActors()
 
   $('#load-more').on('click', async () => {
+    currentPage++
     fetchPopularActors()
   })
 })

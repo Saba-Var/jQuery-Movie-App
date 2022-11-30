@@ -101,9 +101,6 @@ jQuery(() => {
     }
   }
 
-  fetchPopularMovies()
-  fetchUpcomingMovies()
-
   const loadMoreMovies = async (page, category, containerId) => {
     try {
       page++
@@ -118,6 +115,9 @@ jQuery(() => {
       console.log('load movies failed')
     }
   }
+
+  fetchPopularMovies()
+  fetchUpcomingMovies()
 
   $('#load-more').on('click', async () => {
     loadMoreMovies(popularMoviesPage, 'popular', '#movie-list')
