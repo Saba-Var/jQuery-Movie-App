@@ -141,8 +141,9 @@ jQuery(() => {
                         class="font-medium text-slate-100 hover:underline">${
                           movie?.title
                         }</a>
-                        <span class="text-slate-400">as ${
-                          movie?.character
+                        <span class="text-slate-400">
+                        ${
+                          movie?.character ? `as ${movie?.character}` : ''
                         }</span>
                       </p>
                     </div>

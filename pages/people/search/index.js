@@ -1,50 +1,50 @@
 'use strict'
 
-import { searchMovies } from '../../../services/movie-service.js'
+import { searchPerson } from '../../../services/people-service.js'
 import searchAndPush from '../../../utils/searchAndPush.js'
-import appendMovies from '../../../utils/appendMovies.js'
+import appendPeople from '../../../utils/appendPeople.js'
 import queryParams from '../../../utils/queryParams.js'
 
 jQuery(() => {
   const searchQuery = queryParams.query
 
-  const fetchMovies = async (query) => {
+  const fetchPeople = async (query) => {
     try {
-      $('#movie-list').html(
+      $('#people-list').html(
         `<p class="text-3xl mt-5 text-slate-400">Loading ...</p>`
       )
 
-      const response = await searchMovies(query || searchQuery)
+      const response = await searchPerson(query || searchQuery)
 
       if (response?.status === 200) {
-        const moviesList = response?.data?.results
+        const peopleList = response?.data?.results
 
-        if (moviesList.length === 0) {
-          $('#movie-list').html(
+        if (peopleList.length === 0) {
+          $('#actors-list').html(
             `<p class="text-3xl  mt-5 text-main-red">No results found</p>`
           )
         } else {
-          $('#movie-list').html('')
-          appendMovies('#movie-list', moviesList)
+          $('#actors-list').html('')
+          appendPeople(peopleList)
         }
       }
     } catch (error) {
-      console.log('movie details fetch failed')
+      console.log('people fetch failed')
     }
   }
 
   if (searchQuery) {
     $('#search-input').val(searchQuery)
-    fetchMovies()
+    fetchPeople()
   }
 
   $('#search-icon').on('click', () => {
-    searchAndPush(fetchMovies)
+    searchAndPush(fetchPeople)
   })
 
   $('#search-input').on('keyup', (e) => {
     if (e.key === 'Enter') {
-      searchAndPush(fetchMovies)
+      searchAndPush(fetchPeople)
     }
   })
 })

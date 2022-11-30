@@ -11,6 +11,10 @@ export const fetchPerson = (id) => {
   return axiosInstance.get(`/person/${id}?${apiKeyParam}`)
 }
 
+export const searchPerson = (query) => {
+  return axiosInstance.get(`/search/person?query=${query}&${apiKeyParam}`)
+}
+
 export const movieCredits = (id) => {
   return axiosInstance.get(`/person/${id}/movie_credits?${apiKeyParam}`)
 }

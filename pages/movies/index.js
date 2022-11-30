@@ -2,6 +2,7 @@
 
 import theMovieDbConfig from '../../services/the-movie-db-config.js'
 import { fetchMovies } from '../../services/movie-service.js'
+import searchHandler from '../../utils/searchHandler.js'
 import appendMovies from '../../utils/appendMovies.js'
 
 jQuery(() => {
@@ -150,19 +151,13 @@ jQuery(() => {
     sliderHandler('-=', '#slide-arrow-prev')
   })
 
-  const searchHandler = () => {
-    const searchValue = $('#search-input').val().trim()
-
-    if (searchValue) {
-      window.location.href = `/pages/movies/search/index.html?query=${searchValue}`
-    }
-  }
-
-  $('#search-icon').on('click', searchHandler)
+  $('#search-icon').on('click', () => {
+    searchHandler('movies')
+  })
 
   $('#search-input').on('keyup', (e) => {
     if (e.key === 'Enter') {
-      searchHandler()
+      searchHandler('movies')
     }
   })
 })
