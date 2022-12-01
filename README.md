@@ -69,7 +69,7 @@ Open [http://127.0.0.1:8080](http://127.0.0.1:8080/) to view it in your browser.
 
 ## Git commit types
 
-| type     | Description                                                           |
+| Type     | Description                                                           |
 | -------- | --------------------------------------------------------------------- |
 | fix      | fix any bugs                                                          |
 | feat     | add new functionality                                                 |
