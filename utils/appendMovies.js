@@ -1,3 +1,5 @@
+'use strict'
+
 import theMovieDbConfig from '../services/the-movie-db-config.js'
 import imageHandler from './imageHandler.js'
 

@@ -89,9 +89,10 @@ jQuery(() => {
                   </div>
 
                   <div>
-                  <img class="w-[150px] sm:w-[220px] lg:w-[300px] top-0 left-1" src="${theMovieDbConfig.getImageUri(
-                    movieData.poster_path
-                  )}?api_key=${theMovieDbConfig.apiKey}" 
+                  <img 
+                    class="w-[150px] sm:w-[220px] lg:w-[300px] top-0 left-1" src="${theMovieDbConfig.getImageUri(
+                      movieData.poster_path
+                    )}?api_key=${theMovieDbConfig.apiKey}" 
                     alt={${movieData?.title}} 
                     />
                     </div>

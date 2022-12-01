@@ -30,6 +30,7 @@ jQuery(() => {
               <li class="slide relative h-[50vh] w-screen sm:h-screen" id="slide">
               <div class="w-full brightness-50">
                 <img
+                  onerror="location.reload()" 
                   src="${background}?api_key=${theMovieDbConfig.apiKey}"
                   class="h-[50vh] sm:h-screen w-full"
                   alt="${movie.title}"

@@ -1,3 +1,5 @@
+'use strict'
+
 const searchAndPush = (fetchFunction) => {
   const searchValue = $('#search-input').val().trim()
 

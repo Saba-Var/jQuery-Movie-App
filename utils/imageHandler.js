@@ -1,3 +1,5 @@
+'use strict'
+
 const imageHandler = (selector, imageSrc, imageName = 'default-avatar.jpg') => {
   const image = new Image()
   image.src = imageSrc

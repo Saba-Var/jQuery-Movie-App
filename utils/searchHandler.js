@@ -1,3 +1,5 @@
+'use strict'
+
 const searchHandler = (category) => {
   const searchValue = $('#search-input').val().trim()
 
