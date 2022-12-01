@@ -30,7 +30,6 @@ jQuery(() => {
               <li class="slide relative h-[50vh] w-screen sm:h-screen" id="slide">
               <div class="w-full brightness-50">
                 <img
-                  onerror="location.reload()" 
                   src="${background}?api_key=${theMovieDbConfig.apiKey}"
                   class="h-[50vh] sm:h-screen w-full"
                   alt="${movie.title}"
@@ -63,7 +62,7 @@ jQuery(() => {
                       src="${theMovieDbConfig.getImageUri(
                         movie.poster_path
                       )}?api_key=${theMovieDbConfig.apiKey}"
-                      alt="{${movie?.title}}"
+                      alt="${movie?.title}"
                     />
                     <div
                       class="absolute h-20 w-20 hide sm:h-28 sm:w-28 lg:h-40 lg:w-40 z-[99] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
