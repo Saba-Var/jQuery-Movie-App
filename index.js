@@ -1,3 +1,5 @@
+'use strict'
+
 jQuery(() => {
   $('#mobile-menu').hide()
   $('#scroll-up').hide()

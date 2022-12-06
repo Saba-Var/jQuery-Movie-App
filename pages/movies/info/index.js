@@ -10,6 +10,7 @@ import {
   fetchVideos,
   fetchPeople,
 } from '../../../services/movie-service.js'
+
 jQuery(() => {
   const movieId = queryParams.id
 
